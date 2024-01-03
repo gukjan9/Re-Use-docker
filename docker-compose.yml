@@ -1,9 +1,19 @@
-version: "3"
+version: "3.1"
 
 services:
+  nginx:
+    image: gukjang/nginx-reuse:1.0.0
+    container_name: nginx-reuse
+    restart: unless-stopped
+    ports:
+        - 80:80
+        - 443:443
+    networks:
+        - network-reuse
+
   redis:
-      container_name: redis-reuse
       image: gukjang/redis-reuse:1.0.0
+      container_name: redis-reuse
       restart: always
       networks:
           - network-reuse
