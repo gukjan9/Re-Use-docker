@@ -1,5 +1,7 @@
 echo "Starting run_new_process.sh"
 
-nohup java -jar ./script/build/libs/demo-0.0.1-SNAPSHOT.jar &
+docker-compose down
+docker-compose pull
+docker-compose up -d
 
 echo "run_new_process.sh Ended"
