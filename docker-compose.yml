@@ -23,7 +23,7 @@ services:
   mysql:
     image: gukjang/mysql-reuse:1.0.0
     container_name: mysql-reuse-test
-   env_file:
+    env_file:
      - .env
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE_URL}
