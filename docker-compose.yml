@@ -35,7 +35,7 @@ services:
       - network-reuse
     restart: always
     volumes:
-      - data-reuse:/var/lib/mysql
+      - /var/lib/docker/volumes/data-reuse/_data/:/var/lib/mysql
 
   spring:
     image: gukjang/spring-reuse:latest
