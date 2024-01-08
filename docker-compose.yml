@@ -26,7 +26,7 @@ services:
     env_file:
      - .env
     environment:
-      MYSQL_DATABASE: jobcat
+      MYSQL_DATABASE: jdbc:mysql://localhost:3306/jobcat
       MYSQL_USER: root
       MYSQL_PASSWORD: 1234
     ports:
