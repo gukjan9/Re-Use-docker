@@ -26,7 +26,7 @@ services:
     env_file:
      - .env
     environment:
-      MYSQL_DATABASE: jdbc:mysql://mysql-reuse-test:3306/jobcat
+      MYSQL_DATABASE: jdbc:mysql://mysql-reuse-test:3306/jobcat?useSSL=false
       MYSQL_USER: root
       MYSQL_PASSWORD: 1234
     ports:
