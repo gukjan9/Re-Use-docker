@@ -36,7 +36,6 @@ services:
     restart: always
     volumes:
       - data-reuse:/var/lib/mysql
-      - ./db/conf.d:/etc/mysql/conf.d
 
   spring:
     image: gukjang/spring-reuse:latest
