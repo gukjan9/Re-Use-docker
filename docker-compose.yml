@@ -49,9 +49,10 @@ services:
       - mysql
 
 networks:
-  network-reuse:
-    driver: bridge
+  default:
     external: true
+    driver: bridge
+    name: network-reuse
 
 volumes:
   data-reuse:
