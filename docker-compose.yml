@@ -51,7 +51,6 @@ services:
 networks:
   network-reuse:
     external: true
-    driver: bridge
 
 volumes:
   data-reuse:
