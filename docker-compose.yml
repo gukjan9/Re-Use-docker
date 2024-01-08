@@ -41,7 +41,7 @@ services:
     image: gukjang/spring-reuse:latest
     container_name: spring-reuse
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-reuse-test:3306/jobcat?useSSL=false
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-reuse-test:3306/jobcat?useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 1234
     ports:
