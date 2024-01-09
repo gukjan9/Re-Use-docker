@@ -26,24 +26,24 @@ services:
     env_file:
      - .env
     environment:
-      MYSQL_DATABASE: jobcat
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_DATABASE_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_DATABASE_PASSWORD}
     ports:
       - 3306:3306
     networks:
       - network-reuse
     restart: always
     volumes:
-      - /var/lib/docker/volumes/a0ef7be124a92a0d57e8ec13c245bd32fc0959970edb115b819add2d3f949a9b/_data/:/var/lib/mysql
+      - ${MYSQL_DATA_PATH}:/var/lib/mysql
 
   spring:
     image: gukjang/spring-reuse:latest
     container_name: spring-reuse
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-reuse-test:3306/jobcat?useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_DATASOURCE_URL: ${MYSQL_DATABASE_URL}
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_DATABASE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_DATABASE_PASSWORD}
     ports:
       - 8080:8080
     networks:
