@@ -52,6 +52,7 @@ services:
     restart: always
     depends_on:
       - mysql
+      - redis
 
 networks:
   network-reuse:
