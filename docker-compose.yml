@@ -11,14 +11,14 @@ services:
   #   networks:
   #       - network-reuse
   #
-  # redis:
-  #     image: gukjang/redis-reuse:1.0.0
-  #     container_name: redis-reuse
-  #     restart: always
-  #     networks:
-  #         - network-reuse
-  #     ports:
-  #         - 6379:6379
+  redis:
+      image: gukjang/redis-reuse:1.0.0
+      container_name: redis-reuse
+      restart: always
+      networks:
+          - network-reuse
+      ports:
+          - 6379:6379
 
   mysql:
     image: gukjang/mysql-reuse:1.0.0
@@ -44,6 +44,7 @@ services:
       SPRING_DATASOURCE_URL: ${MYSQL_DATABASE_URL}
       SPRING_DATASOURCE_USERNAME: ${MYSQL_DATABASE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_DATABASE_PASSWORD}
+
     ports:
       - 8080:8080
     networks:
