@@ -12,7 +12,7 @@ services:
   #       - network-reuse
   #
   redis:
-      image: gukjang/redis-reuse:1.0.0
+      image: gukjang/redis-reuse:latest
       container_name: redis-reuse
       restart: always
       networks:
@@ -21,7 +21,7 @@ services:
           - 6379:6379
 
   mysql:
-    image: gukjang/mysql-reuse:1.0.0
+    image: gukjang/mysql-reuse:latest
     container_name: mysql-reuse
     env_file:
      - .env
