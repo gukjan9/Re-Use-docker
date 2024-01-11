@@ -21,7 +21,7 @@ for image in $(docker images --format "{{.Repository}}:{{.Tag}}@{{.ID}}"); do
     image_id=$(echo $image | cut -d'@' -f2)
 
     # 조건 체크: 이미지 이름이 DOCKER_USERNAME/로 시작하지 않거나, 태그가 latest, rebuild, stable이 아님
-    if [[ ! $repo =~ ^${DOCKER_USERNAME}/ ]] then # || [[ ! $tag =~ ^(latest|rebuild|stable)$ ]]; then
+    if [[ ! $repo =~ ^${DOCKER_USERNAME}/ ]]; then # || [[ ! $tag =~ ^(latest|rebuild|stable)$ ]]; then
         # 현재 실행 중인 컨테이너에서 사용되고 있지 않은지 확인
         if [[ ! $running_images =~ $image_id ]]; then
             echo "Delete Image: $image"
