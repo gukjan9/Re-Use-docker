@@ -22,7 +22,7 @@ services:
 
   mysql:
     image: gukjang/mysql-reuse:1.0.0
-    container_name: mysql-reuse-test
+    container_name: mysql-reuse
     env_file:
      - .env
     environment:
