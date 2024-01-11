@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "***** Executing upload_latest_images.sh *****"
+
 # .env 파일 로드
 ENV_FILE="$HOME/.env"
 if [ -f "$ENV_FILE" ]; then
@@ -37,3 +39,5 @@ for container_name in "${containers_to_upload[@]}"; do
         echo "No running container found for $container_name"
     fi
 done
+
+echo "***** upload_latest_images.sh Ended *****"
