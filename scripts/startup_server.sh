@@ -1,14 +1,13 @@
 echo "***** Executing startup_server.sh *****"
 
 # 포트포워딩
+echo "Setting port forwarding"
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
 
-cd scripts/
-
 # Docker 재시작
-source restart_docker.sh
+source ./scripts/restart_docker.sh
 
 # Process 실행
-source run_new_process.sh
+source ./scripts/run_new_process.sh
 
 echo "***** startup_server.sh Ended *****"

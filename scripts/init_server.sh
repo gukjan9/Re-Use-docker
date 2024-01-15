@@ -49,8 +49,7 @@ sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-c
 sudo chmod +x /usr/local/bin/docker-compose
 
 echo "Setting Crontab... [3/3]"
-cd scripts/
-SCRIPT="./startup_server.sh"
+SCRIPT="./scripts/startup_server.sh"
 
 # Crontab에 이미 해당 스크립트가 설정되어 있는지 확인
 if crontab -l | grep -q "@reboot $SCRIPT"; then
