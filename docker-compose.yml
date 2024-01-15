@@ -12,8 +12,10 @@ services:
   #       - network-reuse
   #
   redis:
-      image: gukjang/redis-reuse:latest
+      image: ${DOCKER_USERNAME}/${REDIS_CONTAINER_NAME}:latest
       container_name: redis-reuse
+      env_file:
+       - .env
       restart: always
       networks:
           - network-reuse
@@ -21,7 +23,7 @@ services:
           - 6379:6379
 
   mysql:
-    image: gukjang/mysql-reuse:latest
+    image: ${DOCKER_USERNAME}/${MYSQL_CONTAINER_NAME}:latest
     container_name: mysql-reuse
     env_file:
      - .env
@@ -38,8 +40,10 @@ services:
       - ${MYSQL_DATA_PATH}:/var/lib/mysql
 
   spring:
-    image: gukjang/spring-reuse:latest
-    container_name: spring-reuse
+    image: ${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:latest
+    container_name: ${SPRING_CONTAINER_NAME}
+    env_file:
+     - .env
     environment:
       SPRING_DATASOURCE_URL: ${MYSQL_DATABASE_URL}
       SPRING_DATASOURCE_USERNAME: ${MYSQL_DATABASE_USERNAME}
