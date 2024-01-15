@@ -3,6 +3,8 @@ echo "***** Executing startup_server.sh *****"
 # 포트포워딩
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
 
+cd scripts/
+
 # Docker 재시작
 source restart_docker.sh
 
