@@ -14,8 +14,11 @@ fi
 # Docker Hub에 로그인
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 
+MYSQL_CONTAINER_NAME="${MYSQL_CONTAINER_NAME}"
+REDIS_CONTAINER_NAME="${REDIS_CONTAINER_NAME}"
+
 # 특정 컨테이너 이름 설정 (예: mysql과 redis)
-containers_to_upload=("mysql-reuse" "redis-reuse")
+containers_to_upload=("$MYSQL_CONTAINER_NAME" "$REDIS_CONTAINER_NAME")
 
 # 선택된 컨테이너만 업로드
 for container_name in "${containers_to_upload[@]}"; do
