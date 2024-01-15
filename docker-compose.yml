@@ -13,7 +13,7 @@ services:
   #
   redis:
       image: ${DOCKER_USERNAME}/${REDIS_CONTAINER_NAME}:latest
-      container_name: redis-reuse
+      container_name: ${REDIS_CONTAINER_NAME}
       env_file:
        - .env
       restart: always
@@ -24,7 +24,7 @@ services:
 
   mysql:
     image: ${DOCKER_USERNAME}/${MYSQL_CONTAINER_NAME}:latest
-    container_name: mysql-reuse
+    container_name: /${MYSQL_CONTAINER_NAME}
     env_file:
      - .env
     environment:
