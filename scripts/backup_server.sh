@@ -17,14 +17,11 @@ source ./scripts/upload_latest_images.sh
 
 # MySQL 백업
 echo "Backing up MySQL data... [2/4]"
-docker exec $MYSQL_CONTAINER_NAME /usr/bin/mysqldump -u $MYSQL_DATABASE_USERNAME --password=$MYSQL_DATABASE_PASSWORD $MYSQL_DATABASE > backup.sql
+docker exec $MYSQL_CONTAINER_NAME /usr/bin/mysqldump -u $MYSQL_DATABASE_USERNAME --password=$MYSQL_DATABASE_PASSWORD $MYSQL_DATABASE > /home/ubuntu/backup.sql
 
 # backup 폴더 생성
 folder_path="/home/ubuntu/backup"
 mkdir -p "$folder_path" && echo "Directory created: $folder_path"
-
-# backup 폴더에 데이터 백업
-docker cp $MYSQL_CONTAINER_NAME:/usr/bin/mysqldump/backup.sql /home/ubuntu/backup
 
 # 이전하려는 서버에 연결 및 파일 전송
 echo "Creating backup directory on the target server for migration... [3/4]"
