@@ -13,7 +13,7 @@ fi
 
 # 이미지 업로드
 echo "Uploading latest images... [2/6]"
-#source ./scripts/upload_latest_images.sh
+source ./scripts/upload_latest_images.sh
 
 # backup 폴더 생성
 folder_path="/home/ubuntu/backup"
@@ -31,7 +31,7 @@ echo "Creating backup directory on the target server for migration... [4/6]"
 sshpass -p $TARGET_SERVER_PASSWORD ssh $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP -p $TARGET_SERVER_PORT -o StrictHostKeyChecking=no "mkdir -p /home/$TARGET_SERVER_USERNAME/backup" && echo "Backup directory created successfully on the target server"
 
 echo "Transferring MySQL backup data... [5/6]"
-sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT /home/ubuntu/backup/backup.sql $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
+sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT /home/ubuntu/backup/backup.sql $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/backup && echo "Transfer successful!" || echo "Transfer failed"
 
 echo "Transferring env files... [6/6]"
 sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT /home/ubuntu/.env $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
