@@ -28,9 +28,9 @@ docker cp $MYSQL_CONTAINER_NAME:/usr/bin/mysqldump/backup.sql /home/ubuntu/backu
 
 # 이전하려는 서버에 연결 및 파일 전송
 echo "Creating backup directory on the target server for migration... [3/4]"
-ssh -p $SECOND_SERVER_PORT $SECOND_SERVER_USERNAME@$SECOND_SERVER_IP "mkdir -p /home/$SECOND_SERVER_USERNAME/backup" && echo "Backup directory created successfully on the target server"
+ssh -p $TARGET_SERVER_PORT $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP "mkdir -p /home/$TARGET_SERVER_USERNAME/backup" && echo "Backup directory created successfully on the target server"
 
 echo "Transferring MySQL backup data... [4/4]"
-scp -P $SECOND_SERVER_PORT /home/ubuntu/backup/backup.sql $SECOND_SERVER_USERNAME@$SECOND_SERVER_IP:/home/$SECOND_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
+scp -P $TARGET_SERVER_PORT /home/ubuntu/backup/backup.sql $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
 
 echo "***** backup_server.sh Ended *****"
