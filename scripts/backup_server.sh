@@ -34,7 +34,7 @@ echo "Transferring MySQL backup data... [5/6]"
 sshpass -p $TARGET_SERVER_PASSWORD scp /home/ubuntu/backup/backup.sql -P $TARGET_SERVER_PORT $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
 
 echo "Transferring env files... [6/6]"
-sshpass -p $TARGET_SERVER_PASSWORD scp /home/ubuntu/.env -P $TARGET_SERVER_PORT $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
-sshpass -p $TARGET_SERVER_PASSWORD scp /home/ubuntu/scripts/set_env.sh -P $TARGET_SERVER_PORT $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
+sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT /home/ubuntu/.env $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
+sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT /home/ubuntu/scripts/set_env.sh $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
 
 echo "***** backup_server.sh Ended *****"
