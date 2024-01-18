@@ -12,20 +12,25 @@ else
 fi
 
 # 이미지 업로드
+echo "Uploading latest images... [1/4]"
 source ./scripts/upload_latest_images.sh
 
 # MySQL 백업
+echo "Backing up MySQL data... [2/4]"
 docker exec $MYSQL_CONTAINER_NAME /usr/bin/mysqldump -u $MYSQL_DATABASE_USERNAME --password=$MYSQL_DATABASE_PASSWORD $MYSQL_DATABASE > backup.sql
 
-# 생성하고자 하는 폴더 경로
+# backup 폴더 생성
 folder_path="/home/ubuntu/backup"
+mkdir -p "$folder_path" && echo "Directory created: $folder_path"
 
-mkdir -p "$folder_path"
-echo "Directory created: $folder_path"
-
+# backup 폴더에 데이터 백업
 docker cp $MYSQL_CONTAINER_NAME:/usr/bin/mysqldump/backup.sql /home/ubuntu/backup
 
-ssh -p $SECOND_SERVER_PORT $SECOND_SERVER_USERNAME@$SECOND_SERVER_IP "mkdir -p /home/$SECOND_SERVER_USERNAME/backup"
-scp -P $SECOND_SERVER_PORT /home/ubuntu/backup/backup.sql $SECOND_SERVER_USERNAME@$SECOND_SERVER_IP:/home/$SECOND_SERVER_USERNAME/
+# 이전하려는 서버에 연결 및 파일 전송
+echo "Creating backup directory on the target server for migration... [3/4]"
+ssh -p $SECOND_SERVER_PORT $SECOND_SERVER_USERNAME@$SECOND_SERVER_IP "mkdir -p /home/$SECOND_SERVER_USERNAME/backup" && echo "Backup directory created successfully on the target server"
+
+echo "Transferring MySQL backup data... [4/4]"
+scp -P $SECOND_SERVER_PORT /home/ubuntu/backup/backup.sql $SECOND_SERVER_USERNAME@$SECOND_SERVER_IP:/home/$SECOND_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
 
 echo "***** backup_server.sh Ended *****"
