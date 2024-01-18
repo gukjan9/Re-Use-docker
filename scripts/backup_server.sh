@@ -28,7 +28,7 @@ sudo apt-get install sshpass
 
 # 이전하려는 서버에 연결 및 파일 전송
 echo "Creating backup directory on the target server for migration... [4/6]"
-sshpass -p $TARGET_SERVER_PASSWORD ssh $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP -p $TARGET_SERVER_PORT "mkdir -p /home/$TARGET_SERVER_USERNAME/backup" && echo "Backup directory created successfully on the target server"
+sshpass -p $TARGET_SERVER_PASSWORD ssh $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP -p $TARGET_SERVER_PORT -o StrictHostKeyChecking=no "mkdir -p /home/$TARGET_SERVER_USERNAME/backup" && echo "Backup directory created successfully on the target server"
 
 echo "Transferring MySQL backup data... [5/6]"
 sshpass -p $TARGET_SERVER_PASSWORD scp /home/ubuntu/backup/backup.sql -P $TARGET_SERVER_PORT $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
