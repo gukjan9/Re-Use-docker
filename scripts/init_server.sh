@@ -1,11 +1,9 @@
-#apt-get update
-#apt-get upgrade
-#git 설치
-#git clone docker repo
-
-#docker 설치
-#docker-compose 설치
-#docker login
+# sudo apt-get update
+# sudo apt-get upgrade
+# sudo apt-get install git
+# git init
+# git remote add origin https://github.com/gukjan9/Re-Use-docker.git
+# git pull origin main
 
 echo "***** Executing init_server.sh *****"
 
