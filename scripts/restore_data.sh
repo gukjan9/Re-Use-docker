@@ -1,7 +1,7 @@
 echo "***** Executing restore_data.sh *****"
 
 # .env 파일 로드
-echo "Loading .env... [0/3]"
+echo "Loading .env... [1/8]"
 ENV_FILE="$HOME/.env"
 if [ -f "$ENV_FILE" ]; then
     export $(cat "$ENV_FILE" | xargs)
@@ -16,6 +16,7 @@ echo "Creating Docker volume..."
 docker volume create ${MYSQL_DATA}
 
 # MySQL pull
+echo "Pulling MySQL image..."
 docker pull mysql
 
 # restore 용 MySQL 환경변수 재설정
