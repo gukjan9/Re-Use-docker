@@ -9,8 +9,12 @@
 
 echo "***** Executing init_server.sh *****"
 
+# env 파일 이동
+echo "Moving env files... [1/6]"
+sudo mv set_env.sh ~/scripts
+
 # .env 파일 로드
-echo "Loading .env... [1/4]"
+echo "Loading .env... [2/6]"
 ENV_FILE="$HOME/.env"
 if [ -f "$ENV_FILE" ]; then
     export $(cat "$ENV_FILE" | xargs)
@@ -21,7 +25,7 @@ else
 fi
 
 # 필요한 패키지 설치
-echo "Installing Docker... [2/4]"
+echo "Installing Docker... [3/6]"
 sudo apt-get update
 sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 
@@ -44,11 +48,16 @@ docker --version
 # Docker Hub에 로그인
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 
-echo "Installing Docker-Compose... [3/4]"
+# Docker-compose 설치
+echo "Installing Docker-Compose... [4/6]"
 sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-echo "Setting Crontab... [4/5]"
+# MySQL 데이터 복원
+echo "Restoring MySQL data... [5/6]"
+source ./scripts/restore_data.sh
+
+echo "Setting Crontab... [6/6]"
 SCRIPT="./scripts/startup_server.sh"
 
 # Crontab에 이미 해당 스크립트가 설정되어 있는지 확인
