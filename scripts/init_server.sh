@@ -25,13 +25,17 @@ fi
 # 필요한 패키지 설치
 echo "Installing Docker... [3/7]"
 sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+sudo apt-get install curl apt-transport-https ca-certificates gnupg-agent software-properties-common
 
 # Docker의 공식 GPG 키 추가
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+# (pi)
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
 # Docker 의 공식 apt 저장소 추가
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+# sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+# (pi)
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Docker 설치
 sudo apt-get update
@@ -42,6 +46,12 @@ sudo systemctl start docker
 
 # Docker가 정상적으로 설치되었는지 확인
 docker --version
+
+# Docker Group 추가
+# (pi)
+sudo usermod -aG docker ${USER}
+su - ${USER}
+groups ${USER}
 
 # Docker Hub에 로그인
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
