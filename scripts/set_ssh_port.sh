@@ -25,15 +25,15 @@ if cmp -s "${FILE}.bak" "$FILE"; then
     echo "Previous port configuration has been deleted"
     # 해당 포트를 sshd_config에 추가
     echo "PORT $SSH_PORT" | sudo tee -a /etc/ssh/sshd_config > /dev/null
-    echo "PORT $SSH_PORT has been added to /etc/ssh/sshd_config"
+    echo "Custom PORT has been added to /etc/ssh/sshd_config"
 else
     echo "No changes were made to the port configuration"
     # /etc/ssh/sshd_config 파일에서 해당 포트가 선언되었는지 확인
     if grep -q "^PORT $SSH_PORT" /etc/ssh/sshd_config; then
-        echo "PORT $SSH_PORT is already set in /etc/ssh/sshd_config"
+        echo "Custom PORT is already set in /etc/ssh/sshd_config"
     else
         # 해당 포트를 sshd_config에 추가
         echo "PORT $SSH_PORT" | sudo tee -a /etc/ssh/sshd_config > /dev/null
-        echo "PORT $SSH_PORT has been added to /etc/ssh/sshd_config"
+        echo "Custom PORT has been added to /etc/ssh/sshd_config"
     fi
 fi
