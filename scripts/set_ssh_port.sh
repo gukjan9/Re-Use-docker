@@ -14,7 +14,7 @@ fi
 TARGET_FILE="/etc/ssh/sshd_config"
 
 # 원본 파일의 복사본 생성
-cp "$TARGET_FILE" "${TARGET_FILE}.bak"
+sudo cp "$TARGET_FILE" "${TARGET_FILE}.bak"
 
 # /etc/ssh/sshd_config 파일 수정
 # '#'으로 시작하지 않으면서 'PORT $SSH_PORT'가 아닌 줄을 찾아 제거
