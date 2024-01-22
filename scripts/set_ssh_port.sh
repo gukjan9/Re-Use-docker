@@ -26,6 +26,7 @@ if ! cmp -s "${TARGET_FILE}.bak" "$TARGET_FILE"; then
     echo "Previous port configuration has been deleted"
     # 해당 포트를 sshd_config에 추가
     echo "PORT $SSH_PORT" | sudo tee -a /etc/ssh/sshd_config > /dev/null
+    echo "111"
     echo "Custom PORT has been added to /etc/ssh/sshd_config"
 else
     echo "No changes were made to the port configuration"
