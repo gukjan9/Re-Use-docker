@@ -11,7 +11,7 @@ else
     exit 1
 fi
 
-TARGET_FILE = /etc/ssh/sshd_config
+TARGET_FILE = "/etc/ssh/sshd_config"
 
 # 원본 파일의 복사본 생성
 cp "$TARGET_FILE" "${TARGET_FILE}.bak"
