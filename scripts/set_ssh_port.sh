@@ -21,7 +21,7 @@ sudo cp "$TARGET_FILE" "${TARGET_FILE}.bak"
 sudo sed -i "/^#/!{/PORT[[:space:]]\+[0-9]\+/{/\s$SSH_PORT\s/!d}}" "$TARGET_FILE"
 
 # 원본 파일과 수정된 파일 비교
-if cmp -s "${TARGET_FILE}.bak" "$TARGET_FILE"; then
+if ! cmp -s "${TARGET_FILE}.bak" "$TARGET_FILE"; then
     echo "Previous port configuration has been deleted"
     # 해당 포트를 sshd_config에 추가
     echo "PORT $SSH_PORT" | sudo tee -a /etc/ssh/sshd_config > /dev/null
