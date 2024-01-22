@@ -18,7 +18,7 @@ sudo cp "$TARGET_FILE" "${TARGET_FILE}.bak"
 
 # /etc/ssh/sshd_config 파일 수정
 # '#'으로 시작하지 않으면서 'PORT $SSH_PORT'가 아닌 줄을 찾아 제거
-sudo sed -i "/^#/!{/PORT[[:space:]]$SSH_PORT/!d}" "$TARGET_FILE"
+sudo sed -i "/^#/!{/PORT[[:space:]]\+[0-9]\+/{/\s$SSH_PORT\s/!d}}" "$TARGET_FILE"
 
 # 원본 파일과 수정된 파일 비교
 if cmp -s "${FILE}.bak" "$FILE"; then
