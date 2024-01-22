@@ -11,6 +11,7 @@ else
     exit 1
 fi
 
+SSH_PORT="${SSH_PORT}"
 TARGET_FILE="/etc/ssh/sshd_config"
 
 # 원본 파일의 복사본 생성
