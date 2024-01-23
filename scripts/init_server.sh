@@ -47,11 +47,9 @@ sudo systemctl start docker
 # Docker가 정상적으로 설치되었는지 확인
 docker --version
 
-# Docker Group 추가
+# docker.sock 권한 변경
 # (pi)
-sudo usermod -aG docker ${USER}
-su - ${USER}
-groups ${USER}
+sudo chmod 660 /var/run/docker.sock
 
 # Docker Hub에 로그인
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
@@ -77,6 +75,8 @@ else
     echo "The script has been added to Crontab"
 fi
 
+# SSH Port 변경
+# 보안그룹에 포트를 지정해주거나 포트포워딩이 선행 되어야 한다.
 echo "Setting custom ssh port... [7/7]"
 source ./scripts/set_ssh_port.sh
 
