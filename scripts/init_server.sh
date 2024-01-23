@@ -41,15 +41,19 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docke
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
+# docker group 에 사용자 추가
+# (pi)
+sudo usermod -aG docker $USER
+
+# docker.sock 권한 변경
+# (pi)
+# sudo chmod 666 /var/run/docker.sock
+
 # Docker 서비스 시작
 sudo systemctl start docker
 
 # Docker가 정상적으로 설치되었는지 확인
 docker --version
-
-# docker.sock 권한 변경
-# (pi)
-sudo chmod 660 /var/run/docker.sock
 
 # Docker Hub에 로그인
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
