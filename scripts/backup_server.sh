@@ -21,7 +21,8 @@ mkdir -p "$folder_path" && echo "Directory created: $folder_path"
 
 # MySQL 백업
 echo "Backing up MySQL data... [3/6]"
-docker exec $MYSQL_CONTAINER_NAME /usr/bin/mysqldump -u $MYSQL_DATABASE_USERNAME --password=$MYSQL_DATABASE_PASSWORD $MYSQL_DATABASE > /home/ubuntu/backup/backup.sql
+docker exec $MYSQL_CONTAINER_NAME mysqldump -u root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE > /home/backup.sql
+docker cp $MYSQL_CONTAINER_NAME:/home/backup.sql /home/ubuntu/backup/backup.sql
 
 # sshpass 설치
 sudo apt-get install sshpass
