@@ -21,7 +21,7 @@ mkdir -p "$folder_path" && echo "Directory created: $folder_path"
 
 # MySQL 백업
 echo "Backing up MySQL data... [3/6]"
-docker exec -i $MYSQL_CONTAINER_NAME bash -c "mysqldump -u root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE > /home/backup.sql"
+docker exec -i -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD $MYSQL_CONTAINER_NAME bash -c "mysqldump -u root -p\$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE > /home/backup.sql"
 echo "1"
 docker cp $MYSQL_CONTAINER_NAME:/home/backup.sql /home/ubuntu/backup/backup.sql
 
