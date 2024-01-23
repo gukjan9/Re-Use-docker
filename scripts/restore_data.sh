@@ -27,7 +27,7 @@ docker pull hypriot/rpi-mysql
 MYSQL_IMAGE_NAME="hypriot/rpi-mysql:latest"
 MYSQL_DATABASE_PASSWORD=1234
 MYSQL_CONTAINER_NAME="restore_container"
-MYSQL_DATABASE="${MYSQL_CONTAINER_NAME}"
+MYSQL_DATABASE="${MYSQL_DATABASE}"
 
 # MySQL 실행
 echo "Running MySQL container... [4/8]"
