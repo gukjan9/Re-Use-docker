@@ -25,7 +25,7 @@ docker pull hypriot/rpi-mysql
 # MYSQL_IMAGE_NAME="mysql:latest"
 # (pi)
 MYSQL_IMAGE_NAME="hypriot/rpi-mysql:latest"
-MYSQL_ROOT_PASSWORD="1234"
+MYSQL_DATABASE_PASSWORD=1234
 MYSQL_CONTAINER_NAME="restore_container"
 
 # MySQL 실행
