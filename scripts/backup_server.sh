@@ -13,7 +13,7 @@ fi
 
 # 이미지 업로드
 echo "Uploading latest images... [2/6]"
-source ./scripts/upload_latest_images.sh
+#source ./scripts/upload_latest_images.sh
 
 # backup 폴더 생성
 folder_path="/home/ubuntu/backup"
