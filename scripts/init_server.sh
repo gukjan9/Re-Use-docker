@@ -44,7 +44,9 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 # docker group 에 사용자 추가
 # (pi)
 sudo usermod -aG docker $USER
-newgrp docker
+newgrp docker << 'EOF'
+
+echo "[Sub Shell]"
 
 # docker.sock 권한 변경
 # (pi)
@@ -86,6 +88,8 @@ echo "Setting custom ssh port... [7/7]"
 source ./scripts/set_ssh_port.sh
 
 echo "***** init_server.sh Ended *****"
+
+EOF
 
 echo "Rebooting Server..."
 sudo reboot
