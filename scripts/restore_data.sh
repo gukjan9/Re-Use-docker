@@ -38,9 +38,10 @@ docker cp /home/$TARGET_SERVER_USERNAME/backup/backup.sql $MYSQL_CONTAINER_NAME:
 echo "Restoring data from backup... [6/8]"
 docker exec -i $MYSQL_CONTAINER_NAME /bin/bash -c "mysql -u root -p$MYSQL_ROOT_PASSWORD < /var/lib/mysql/backup.sql"
 
-# MySQL 컨테이너 중지
-echo "Stopping MySQL container... [7/8]"
+# MySQL 컨테이너 중지 / 삭제
+echo "Stopping and deleting MySQL container... [7/8]"
 docker stop $MYSQL_CONTAINER_NAME
+docker rm $MYSQL_CONTAINER_NAME
 
 # MySQL 이미지 삭제
 echo "Deleting MySQL image... [8/8]"
