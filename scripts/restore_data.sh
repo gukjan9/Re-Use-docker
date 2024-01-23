@@ -28,7 +28,7 @@ MYSQL_CONTAINER_NAME="restore_container"
 
 # MySQL 실행
 echo "Running MySQL container... [4/8]"
-docker run --name $MYSQL_CONTAINER_NAME -v $MYSQL_VOLUME:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD -d $MYSQL_IMAGE_NAME
+docker run --name $MYSQL_CONTAINER_NAME -v $MYSQL_DATA_PATH:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD -d $MYSQL_IMAGE_NAME
 
 # 백업 파일 복사
 echo "Copying backup file to the container... [5/8]"
