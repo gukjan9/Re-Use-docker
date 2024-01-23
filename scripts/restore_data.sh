@@ -19,12 +19,12 @@ docker volume create ${MYSQL_DATA}
 echo "Pulling MySQL image... [3/8]"
 # docker pull mysql
 # (pi)
-docker pull linuxserver/mariadb
+docker pull hypriot/rpi-mysql
 
 # restore 용 MySQL 환경변수 재설정
-MYSQL_IMAGE_NAME="mysql:latest"
+# MYSQL_IMAGE_NAME="mysql:latest"
 # (pi)
-MYSQL_IMAGE_NAME="linuxserver/mariadb"
+MYSQL_IMAGE_NAME="hypriot/rpi-mysql:latest"
 MYSQL_ROOT_PASSWORD="1234"
 MYSQL_CONTAINER_NAME="restore_container"
 
