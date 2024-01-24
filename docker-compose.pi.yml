@@ -12,7 +12,7 @@ services:
   #       - network-reuse
   #
   redis:
-      image: ${DOCKER_USERNAME}/${REDIS_CONTAINER_NAME}:latest
+      image: arm32v7/redis:latest
       container_name: ${REDIS_CONTAINER_NAME}
       env_file:
        - .env
@@ -23,7 +23,7 @@ services:
           - 6379:6379
 
   mysql:
-    image: ${DOCKER_USERNAME}/${MYSQL_CONTAINER_NAME}:latest
+    image: hypriot/rpi-mysql:latest
     container_name: ${MYSQL_CONTAINER_NAME}
     env_file:
      - .env
