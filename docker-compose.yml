@@ -59,9 +59,11 @@ services:
       - redis
 
 networks:
-  ${DOCKER_NETWORK}:
+  network:
+    name: ${DOCKER_NETWORK}
     external: true
 
 volumes:
-  ${MYSQL_VOLUME}:
+  mysql_data:
+    name: ${MYSQL_VOLUME}
     external: true
