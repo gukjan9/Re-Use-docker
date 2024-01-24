@@ -27,7 +27,7 @@ fi
 # 필요한 패키지 설치
 echo "Installing Docker... [3/7]"
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get upgrade -y
 sudo apt-get install curl apt-transport-https ca-certificates gnupg-agent software-properties-common
 
 # Docker의 공식 GPG 키 추가
@@ -70,6 +70,7 @@ echo "Installing Docker-Compose... [4/7]"
 # (pi)
 sudo apt-get install -y libffi-dev libssl-dev
 sudo apt-get install -y python3 python3-pip
+pip install --upgrade pip
 sudo apt-get remove -y python-configparser
 sudo pip3 install docker-compose
 
