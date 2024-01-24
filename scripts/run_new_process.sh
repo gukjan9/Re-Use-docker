@@ -1,3 +1,5 @@
+#!/bin/sh
+
 echo "***** Executing run_new_process.sh *****"
 
 docker-compose down
