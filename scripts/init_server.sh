@@ -68,10 +68,13 @@ echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-
 echo "Installing Docker-Compose... [4/7]"
 # sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 # (pi)
+sudo apt-get update
+sudo apt-get upgrade -y
 sudo apt-get install -y libffi-dev libssl-dev
 sudo apt-get install -y python3 python3-pip
 pip install --upgrade pip
 sudo apt-get remove -y python-configparser
+sudo pip3 install -U "bcrypt<4.0.0"
 sudo pip3 install docker-compose
 
 sudo chmod +x /usr/local/bin/docker-compose
