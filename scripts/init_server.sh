@@ -71,21 +71,21 @@ echo "Restoring MySQL data... [5/7]"
 source ./scripts/restore_data.sh
 
 echo "Setting Crontab... [6/7]"
-SCRIPT="~/scripts/startup_server.sh"
+SCRIPT="./scripts/startup_server.sh"
 
 # Crontab에 이미 해당 스크립트가 설정되어 있는지 확인
-if crontab -l | grep -q "@reboot source $SCRIPT"; then
+if crontab -l | grep -q "@reboot $SCRIPT"; then
     echo "startup_server.sh is already set up in Crontab"
 else
     # 현재 crontab을 백업하고, 새 명령어 추가
-    (crontab -l 2>/dev/null; echo "@reboot source $SCRIPT") | crontab -
+    (crontab -l 2>/dev/null; echo "@reboot $SCRIPT") | crontab -
     echo "The script has been added to Crontab"
 fi
 
 # SSH Port 변경
 # 보안그룹에 포트를 지정해주거나 포트포워딩이 선행 되어야 한다.
 echo "Setting custom ssh port... [7/7]"
-source ~/scripts/set_ssh_port.sh
+source ./scripts/set_ssh_port.sh
 
 # Docker 네트워크 설정
 docker network create --driver bridge $DOCKER_NETWORK
