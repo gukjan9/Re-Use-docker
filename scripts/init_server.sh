@@ -68,7 +68,7 @@ echo "Installing Docker-Compose... [4/7]"
 # sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 # (pi)
 sudo apt-get install -y python3-pip
-sudo pip3 install docker-compose
+pip3 install docker-compose
 
 sudo chmod +x /usr/local/bin/docker-compose
 
