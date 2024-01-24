@@ -71,7 +71,7 @@ echo "Restoring MySQL data... [5/7]"
 source ./scripts/restore_data.sh
 
 echo "Setting Crontab... [6/7]"
-SCRIPT="./scripts/startup_server.sh"
+SCRIPT="/home/$TARGET_SERVER_USERNAME/scripts/startup_server.sh"
 
 # Crontab에 이미 해당 스크립트가 설정되어 있는지 확인
 if crontab -l | grep -q "@reboot $SCRIPT"; then
