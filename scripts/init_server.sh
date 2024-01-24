@@ -72,7 +72,7 @@ source ./scripts/restore_data.sh
 
 echo "Setting Crontab... [6/7]"
 SCRIPT="/home/$TARGET_SERVER_USERNAME/scripts/startup_server.sh"
-chmod +x SCRIPT
+chmod +x $SCRIPT
 
 mkdir cron_logs
 touch ~/cron_logs/startup_server_log.txt
