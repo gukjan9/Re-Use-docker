@@ -73,12 +73,15 @@ source ./scripts/restore_data.sh
 echo "Setting Crontab... [6/7]"
 SCRIPT="/home/$TARGET_SERVER_USERNAME/scripts/startup_server.sh"
 
+mkdir cron_logs
+touch ~/cron_logs/startup_server_log.txt
+
 # Crontab에 이미 해당 스크립트가 설정되어 있는지 확인
-if crontab -l | grep -q "@reboot $SCRIPT"; then
+if crontab -l | grep -q "@reboot $SCRIPT > /home/$TARGET_SERVER_USERNAME/cron_logs/startup_server_log.txt"; then
     echo "startup_server.sh is already set up in Crontab"
 else
     # 현재 crontab을 백업하고, 새 명령어 추가
-    (crontab -l 2>/dev/null; echo "@reboot $SCRIPT") | crontab -
+    (crontab -l 2>/dev/null; echo "@reboot $SCRIPT > /home/$TARGET_SERVER_USERNAME/cron_logs/startup_server_log.txt") | crontab -
     echo "The script has been added to Crontab"
 fi
 
