@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "***** Executing backup_server.sh *****"
 
 # .env 파일 로드

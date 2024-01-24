@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "***** Executing restart_docker.sh *****"
 
 sudo service docker stop

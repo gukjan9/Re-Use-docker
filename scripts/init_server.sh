@@ -5,6 +5,8 @@
 # git remote add origin https://github.com/gukjan9/Re-Use-docker.git
 # git pull origin main
 
+#!/bin/bash
+
 echo "***** Executing init_server.sh *****"
 
 # env 파일 이동

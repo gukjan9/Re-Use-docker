@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "***** Executing restore_data.sh *****"
 
 # .env 파일 로드
