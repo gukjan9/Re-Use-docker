@@ -87,6 +87,9 @@ fi
 echo "Setting custom ssh port... [7/7]"
 source ./scripts/set_ssh_port.sh
 
+# Docker 네트워크 설정
+docker network create --driver bridge $DOCKER_NETWORK
+
 echo "***** init_server.sh Ended *****"
 
 EOF

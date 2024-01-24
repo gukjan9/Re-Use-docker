@@ -13,7 +13,7 @@ fi
 
 # Docker 볼륨 생성
 echo "Creating Docker volume... [2/8]"
-docker volume create ${MYSQL_DATA}
+docker volume create ${MYSQL_VOLUME}
 
 # MySQL pull
 echo "Pulling MySQL image... [3/8]"

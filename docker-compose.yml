@@ -18,7 +18,7 @@ services:
        - .env
       restart: always
       networks:
-          - network-reuse
+          - ${DOCKER_NETWORK}
       ports:
           - 6379:6379
 
@@ -34,7 +34,7 @@ services:
     ports:
       - 3306:3306
     networks:
-      - network-reuse
+      - ${DOCKER_NETWORK}
     restart: always
     volumes:
       - ${MYSQL_DATA_PATH}:/var/lib/mysql
@@ -52,16 +52,16 @@ services:
     ports:
       - 8080:8080
     networks:
-      - network-reuse
+      - ${DOCKER_NETWORK}
     restart: always
     depends_on:
       - mysql
       - redis
 
 networks:
-  network-reuse:
+  ${DOCKER_NETWORK}:
     external: true
 
 volumes:
-  data-reuse:
+  ${MYSQL_VOLUME}:
     external: true
