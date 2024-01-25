@@ -24,21 +24,30 @@ else
     exit 1
 fi
 
+# OS 버전을 확인
+os_version=$(uname -a)
+
 # 필요한 패키지 설치
 echo "Installing Docker... [3/7]"
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install curl apt-transport-https ca-certificates gnupg-agent software-properties-common
 
-# Docker의 공식 GPG 키 추가
-# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-# (pi)
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
+  echo "$os_version"
+  # Docker의 공식 GPG 키 추가
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-# Docker 의 공식 apt 저장소 추가
-# sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-# (pi)
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  # Docker 의 공식 apt 저장소 추가
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+else
+  echo "$os_version"
+  # Docker의 공식 GPG 키 추가
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+  # Docker 의 공식 apt 저장소 추가
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+fi
 
 # Docker 설치
 sudo apt-get update
@@ -51,10 +60,6 @@ newgrp docker << 'EOF'
 
 echo "[Sub Shell]"
 
-# docker.sock 권한 변경
-# (pi)
-# sudo chmod 666 /var/run/docker.sock
-
 # Docker 서비스 시작
 sudo systemctl start docker
 
@@ -66,17 +71,15 @@ echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-
 
 # Docker-compose 설치
 echo "Installing Docker-Compose... [4/7]"
-# sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-# (pi)
-sudo apt-get update
-sudo apt-get upgrade -y
-sudo apt-get install -y libffi-dev libssl-dev
-sudo apt-get install -y python3 python3-pip
-pip install --upgrade pip
-sudo apt-get remove -y python-configparser
-sudo pip3 install -U "bcrypt<4.0.0"
-# sudo pip3 install docker-compose
-sudo apt install docker-compose
+if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
+  echo "$os_version"
+  sudo apt-get update
+  sudo apt-get upgrade -y
+  sudo apt install docker-compose
+else
+  echo "$os_version"
+  sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+fi
 
 sudo chmod +x /usr/local/bin/docker-compose
 
