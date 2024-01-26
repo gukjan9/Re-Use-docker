@@ -3,7 +3,7 @@
 echo "***** Executing startup_server.sh *****"
 
 # 포트포워딩
-echo "Setting port forwarding... [1/3]"
+echo "Setting port forwarding... [1/4]"
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
 
 # OS 버전을 확인
@@ -23,11 +23,15 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
 fi
 
 # Docker 재시작
-echo "Restarting docker... [2/3]"
+echo "Restarting docker... [2/4]"
 source ~/scripts/restart_docker.sh
 
 # Process 실행
-echo "Running server... [3/3]"
+echo "Running server... [3/4]"
 source ~/scripts/run_new_process.sh
+
+# MySQL 권한 부여
+echo "Initialize mysql privileges... [4/4]"
+docker exec -i $MYSQL_CONTAINER_NAME mysql -u root -p$MYSQL_DATABASE_PASSWORD <<< "CREATE USER '$MYSQL_DATABASE_USERNAME'@'$MYSQL_ALLOWED_IP' IDENTIFIED BY '$MYSQL_DATABASE_PASSWORD'; GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_DATABASE_USERNAME'@'$MYSQL_ALLOWED_IP'; FLUSH PRIVILEGES;"
 
 echo "***** startup_server.sh Ended *****"
