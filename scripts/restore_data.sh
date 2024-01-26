@@ -19,26 +19,43 @@ docker volume create ${MYSQL_VOLUME}
 
 # MySQL pull
 echo "Pulling MySQL image... [3/8]"
-# docker pull mysql
-# (pi)
-docker pull hypriot/rpi-mysql
 
-# restore 용 MySQL 환경변수 재설정
-# MYSQL_IMAGE_NAME="mysql:latest"
-# (pi)
-MYSQL_IMAGE_NAME="hypriot/rpi-mysql:latest"
-MYSQL_DATABASE_PASSWORD=1234
-MYSQL_CONTAINER_NAME="restore_container"
-MYSQL_DATABASE="${MYSQL_DATABASE}"
+# OS 버전을 확인
+os_version=$(uname -a)
+
+if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
+  echo "$os_version"
+
+  # docker pull mysql
+  docker pull hypriot/rpi-mysql
+
+  # restore 용 MySQL 환경변수 재설정
+  MYSQL_IMAGE_NAME="hypriot/rpi-mysql:latest"
+  MYSQL_DATABASE_PASSWORD=1234
+  MYSQL_CONTAINER_NAME="restore_container"
+  MYSQL_DATABASE="${MYSQL_DATABASE}"
+else
+  echo "$os_version"
+
+  # docker pull mysql
+  docker pull mysql
+
+  # restore 용 MySQL 환경변수 재설정
+  MYSQL_IMAGE_NAME="mysql:latest"
+  MYSQL_DATABASE_PASSWORD=1234
+  MYSQL_CONTAINER_NAME="restore_container"
+  MYSQL_DATABASE="${MYSQL_DATABASE}"
+fi
 
 # MySQL 실행
 echo "Running MySQL container... [4/8]"
 docker run --name $MYSQL_CONTAINER_NAME -v $MYSQL_DATA_PATH:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=$MYSQL_DATABASE_PASSWORD -d $MYSQL_IMAGE_NAME
 
 # 백업 파일 복사
-echo "Copying backup file to the container... [5/8]"
+# echo "Copying backup file to the container... [5/8]"
 # docker cp /home/$TARGET_SERVER_USERNAME/backup/backup.sql $MYSQL_CONTAINER_NAME:/var/lib/mysql/backup.sql
 
+echo "Sleeping for 10 seconds..."
 sleep 10
 
 # MySQL에 접속하여 백업 데이터 복원
