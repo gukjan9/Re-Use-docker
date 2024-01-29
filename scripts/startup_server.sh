@@ -31,7 +31,7 @@ echo "Running server... [3/4]"
 source ~/scripts/run_new_process.sh
 
 # MySQL 권한 부여
-echo "Initialize mysql privileges... [4/4]"
+echo "Initializing mysql privileges... [4/4]"
 docker exec -i $MYSQL_CONTAINER_NAME mysql -u root -p$MYSQL_DATABASE_PASSWORD <<< "CREATE USER '$MYSQL_DATABASE_USERNAME'@'$MYSQL_ALLOWED_IP' IDENTIFIED BY '$MYSQL_DATABASE_PASSWORD'; GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_DATABASE_USERNAME'@'$MYSQL_ALLOWED_IP'; FLUSH PRIVILEGES;"
 
 echo "***** startup_server.sh Ended *****"
