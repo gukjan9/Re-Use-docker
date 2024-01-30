@@ -41,6 +41,7 @@ services:
 
   spring:
     image: ${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:latest
+    platform: linux/arm64
     container_name: ${SPRING_CONTAINER_NAME}
     env_file:
      - .env
