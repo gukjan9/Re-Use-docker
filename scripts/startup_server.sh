@@ -2,9 +2,21 @@
 
 echo "***** Executing startup_server.sh *****"
 
+# .env 파일 로드
+echo "Loading .env... [1/5]"
+ENV_FILE="$HOME/.env"
+if [ -f "$ENV_FILE" ]; then
+    export $(cat "$ENV_FILE" | xargs)
+    echo "$ENV_FILE exported"
+else
+    echo "Cannot find $ENV_FILE"
+    exit 1
+fi
+
 # 포트포워딩
-echo "Setting port forwarding... [1/4]"
+echo "Setting port forwarding... [2/5]"
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port $SSH_PORT
 
 # OS 버전을 확인
 os_version=$(uname -a)
@@ -23,15 +35,15 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
 fi
 
 # Docker 재시작
-echo "Restarting docker... [2/4]"
+echo "Restarting docker... [3/5]"
 source ~/scripts/restart_docker.sh
 
 # Process 실행
-echo "Running server... [3/4]"
+echo "Running server... [4/5]"
 source ~/scripts/run_new_process.sh
 
 # MySQL 권한 부여
-echo "Initializing mysql privileges... [4/4]"
+echo "Initializing mysql privileges... [5/5]"
 docker exec -i $MYSQL_CONTAINER_NAME mysql -u root -p$MYSQL_DATABASE_PASSWORD <<< "CREATE USER '$MYSQL_DATABASE_USERNAME'@'$MYSQL_ALLOWED_IP' IDENTIFIED BY '$MYSQL_DATABASE_PASSWORD'; GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_DATABASE_USERNAME'@'$MYSQL_ALLOWED_IP'; FLUSH PRIVILEGES;"
 
 echo "***** startup_server.sh Ended *****"
