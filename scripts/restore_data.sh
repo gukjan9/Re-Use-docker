@@ -70,6 +70,6 @@ docker rm $MYSQL_CONTAINER_NAME
 
 # MySQL 이미지 삭제
 echo "Deleting MySQL image... [8/8]"
-# docker rmi $MYSQL_IMAGE_NAME
+docker rmi $MYSQL_IMAGE_NAME
 
 echo "***** restore_data.sh Ended *****"
