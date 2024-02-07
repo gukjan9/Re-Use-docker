@@ -54,7 +54,6 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
 # docker group 에 사용자 추가
-# (pi)
 sudo usermod -aG docker $USER
 newgrp docker << 'EOF'
 
