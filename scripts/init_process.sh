@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "***** Executing run_new_process.sh *****"
+echo "***** Executing init_process.sh *****"
 
 # OS 버전을 확인
 os_version=$(uname -a)
@@ -17,4 +17,4 @@ else
   docker-compose -f docker-compose.yml up -d
 fi
 
-echo "***** run_new_process.sh Ended *****"
+echo "***** init_process.sh Ended *****"
