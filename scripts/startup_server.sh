@@ -36,7 +36,7 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port $SSH_
 
 # Docker 재시작
 echo "Restarting docker... [3/5]"
-source ~/scripts/restart_docker.sh
+sudo service docker restart
 
 # Process 실행
 echo "Running server... [4/5]"
