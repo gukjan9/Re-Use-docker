@@ -38,12 +38,24 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port $SSH_
 echo "Restarting docker... [3/5]"
 sudo service docker restart
 
-# Process 실행
-echo "Running server... [4/5]"
-source ~/scripts/run_new_process.sh
+# 서버 init 여부
+INIT_FLAG="$HOME/.init_configured"
 
-# MySQL 권한 부여
-echo "Initializing mysql privileges... [5/5]"
-docker exec -i $MYSQL_CONTAINER_NAME mysql -u root -p$MYSQL_DATABASE_PASSWORD <<< "CREATE USER '$MYSQL_DATABASE_USERNAME'@'$MYSQL_ALLOWED_IP' IDENTIFIED BY '$MYSQL_DATABASE_PASSWORD'; GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_DATABASE_USERNAME'@'$MYSQL_ALLOWED_IP'; FLUSH PRIVILEGES;"
+if [ ! -f "$MYSQL_PRIVILEGES_CONFIGURED_FLAG" ]; then
+
+  # Process 실행
+  echo "Running server... [4/5]"
+  source ~/scripts/init_process.sh
+
+  # MySQL 권한 부여
+  echo "Initializing mysql privileges... [5/5]"
+  docker exec -i $MYSQL_CONTAINER_NAME mysql -u root -p$MYSQL_DATABASE_PASSWORD <<< "CREATE USER '$MYSQL_DATABASE_USERNAME'@'$MYSQL_ALLOWED_IP' IDENTIFIED BY '$MYSQL_DATABASE_PASSWORD'; GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_DATABASE_USERNAME'@'$MYSQL_ALLOWED_IP'; FLUSH PRIVILEGES;"
+
+  # Flag 파일 생성
+  touch "$MYSQL_PRIVILEGES_CONFIGURED_FLAG"
+
+else
+  echo "Server already initialized. Skipping... [5/5]"
+fi
 
 echo "***** startup_server.sh Ended *****"
