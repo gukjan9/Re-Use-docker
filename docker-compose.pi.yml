@@ -1,16 +1,16 @@
 version: "3.1"
 
 services:
-  # nginx:
-  #   image: gukjang/nginx-reuse:1.0.0
-  #   container_name: nginx-reuse
-  #   restart: unless-stopped
-  #   ports:
-  #       - 80:80
-  #       - 443:443
-  #   networks:
-  #       - network-reuse
-  #
+  nginx:
+    image: gukjang/nginx-reuse:1.0.0
+    container_name: nginx-reuse
+    restart: unless-stopped
+    ports:
+        - 80:80
+        - 443:443
+    networks:
+        - network-reuse
+
   redis:
       image: arm32v7/redis:latest
       container_name: ${REDIS_CONTAINER_NAME}
