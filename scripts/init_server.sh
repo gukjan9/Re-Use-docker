@@ -10,11 +10,11 @@
 echo "***** Executing init_server.sh *****"
 
 # env 파일 이동
-echo "Moving env files... [1/7]"
+echo "Moving env files... [1/9]"
 sudo mv set_env.sh ~/scripts
 
 # .env 파일 로드
-echo "Loading .env... [2/7]"
+echo "Loading .env... [2/9]"
 ENV_FILE="$HOME/.env"
 if [ -f "$ENV_FILE" ]; then
     export $(cat "$ENV_FILE" | xargs)
@@ -28,7 +28,7 @@ fi
 os_version=$(uname -a)
 
 # 필요한 패키지 설치
-echo "Installing Docker... [3/7]"
+echo "Installing Docker... [3/9]"
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install curl apt-transport-https ca-certificates gnupg-agent software-properties-common
@@ -69,7 +69,7 @@ docker --version
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 
 # Docker-compose 설치
-echo "Installing Docker-Compose... [4/7]"
+echo "Installing Docker-Compose... [4/9]"
 if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   echo "$os_version"
   sudo apt-get update
@@ -83,10 +83,10 @@ fi
 sudo chmod +x /usr/local/bin/docker-compose
 
 # MySQL 데이터 복원
-echo "Restoring MySQL data... [5/7]"
+echo "Restoring MySQL data... [5/9]"
 source ./scripts/restore_data.sh
 
-echo "Setting Crontab... [6/7]"
+echo "Setting Crontab... [6/9]"
 SCRIPT="/home/$TARGET_SERVER_USERNAME/scripts/startup_server.sh"
 chmod +x $SCRIPT
 
@@ -102,13 +102,18 @@ else
     echo "The script has been added to Crontab"
 fi
 
+# Docker 네트워크 생성
+echo "Creating docker network... [7/9]"
+docker network create --driver bridge $DOCKER_NETWORK
+
 # SSH Port 변경
 # 보안그룹에 포트를 지정해주거나 포트포워딩이 선행 되어야 한다.
-echo "Setting custom ssh port... [7/7]"
+echo "Setting custom ssh port... [8/9]"
 source ./scripts/set_ssh_port.sh
 
-# Docker 네트워크 설정
-docker network create --driver bridge $DOCKER_NETWORK
+# 추가 패키지 설치
+echo "Installing packages... [9/9]"
+sudo apt install curl jq -y
 
 echo "***** init_server.sh Ended *****"
 
