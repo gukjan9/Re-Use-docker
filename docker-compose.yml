@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   nginx:
-    image: ${DOCKER_USERNAME}/${NGINX_CONTAINER_NAME}:latest
+    image: ${DOCKER_USERNAME}/${NGINX_CONTAINER_NAME}:1.0.0
     container_name: ${NGINX_CONTAINER_NAME}
     restart: always
     env_file:
@@ -12,6 +12,9 @@ services:
         - 443:443
     networks:
         - network-reuse
+    depends_on:
+      - spring-blue
+      - spring-green
 
   redis:
       image: ${DOCKER_USERNAME}/${REDIS_CONTAINER_NAME}:latest
@@ -42,7 +45,7 @@ services:
       - network-reuse
 
   spring-blue:
-    image: ${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:latest
+    image: ${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:blue
     container_name: ${SPRING_CONTAINER_NAME}-blue
     restart: always
     env_file:
@@ -60,7 +63,7 @@ services:
       - redis
 
   spring-green:
-    image: ${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:latest
+    image: ${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:green
     container_name: ${SPRING_CONTAINER_NAME}-green
     restart: always
     env_file:

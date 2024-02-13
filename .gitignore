@@ -1,4 +1,4 @@
 set_env.sh
 .DS_Store
 .env
-/nginx/conf.d
+/nginx/
