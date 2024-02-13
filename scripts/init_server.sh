@@ -113,7 +113,6 @@ source ./scripts/set_ssh_port.sh
 
 # 추가 패키지 설치
 echo "Installing packages... [9/9]"
-sudo apt install curl jq -y
 
 echo "***** init_server.sh Ended *****"
 
