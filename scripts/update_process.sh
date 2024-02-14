@@ -146,5 +146,6 @@ else
       docker compose rm -f spring-green
     fi
   fi
+fi
 
 echo "***** init_process.sh Ended *****"
