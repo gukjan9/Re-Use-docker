@@ -58,6 +58,8 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
       docker compose stop spring-blue
       docker compose rm -f spring-blue
     else
+      echo "SPRING-BLUE health check succeed"
+
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
       sudo nginx -s reload
 
@@ -81,12 +83,15 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
       docker compose stop spring-blue
       docker compose rm -f spring-blue
     else
+      echo "SPRING-BLUE health check succeed"
+
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
       sudo nginx -s reload
 
       docker compose stop spring-green
       docker compose rm -f spring-green
     fi
+  fi
 
 else
   echo "$os_version"
@@ -107,6 +112,8 @@ else
       docker compose stop spring-blue
       docker compose rm -f spring-blue
     else
+      echo "SPRING-BLUE health check succeed"
+
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
       sudo nginx -s reload
 
@@ -130,12 +137,14 @@ else
       docker compose stop spring-blue
       docker compose rm -f spring-blue
     else
+      echo "SPRING-BLUE health check succeed"
+
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
       sudo nginx -s reload
 
       docker compose stop spring-green
       docker compose rm -f spring-green
     fi
-fi
+  fi
 
 echo "***** init_process.sh Ended *****"
