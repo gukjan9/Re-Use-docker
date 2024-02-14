@@ -51,7 +51,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
       echo "SPRING-BLUE health check failed"
     fi
 
-    sudo cp /home/$SSH_USERNAME/nginx/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
+    sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
     sudo nginx -s reload
 
     docker compose stop spring-green
@@ -66,7 +66,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
       echo "SPRING-GREEN health check failed"
     fi
 
-    sudo cp /home/$SSH_USERNAME/nginx/nginx_green.conf /home/$SSH_USERNAME/nginx/nginx.conf
+    sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_green.conf /home/$SSH_USERNAME/nginx/nginx.conf
     sudo nginx -s reload
 
     docker compose stop spring-blue
@@ -85,7 +85,7 @@ else
       echo "SPRING-BLUE health check failed"
     fi
 
-    sudo cp /home/$SSH_USERNAME/nginx/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
+    sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
     sudo nginx -s reload
 
     docker compose stop spring-green
@@ -100,7 +100,7 @@ else
       echo "SPRING-GREEN health check failed"
     fi
 
-    sudo cp /home/$SSH_USERNAME/nginx/nginx_green.conf /home/$SSH_USERNAME/nginx/nginx.conf
+    sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_green.conf /home/$SSH_USERNAME/nginx/nginx.conf
     sudo nginx -s reload
 
     docker compose stop spring-blue
