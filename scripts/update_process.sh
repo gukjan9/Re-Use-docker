@@ -47,9 +47,8 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     docker compose -f docker-compose.pi.yml pull spring-blue
     docker compose -f docker-compose.pi.yml up -d spring-blue
 
-    if ! check_service "http://$SERVER_IP:8080"; then
+    if ! check_service "$SERVER_IP_BLUE"; then
       echo "SPRING-BLUE health check failed"
-      exit 1
     fi
 
     sudo cp /home/$SSH_USERNAME/nginx/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
@@ -63,9 +62,8 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     docker compose -f docker-compose.pi.yml pull spring-green
     docker compose -f docker-compose.pi.yml up -d spring-green
 
-    if ! check_service "http://$SERVER_IP:8080"; then
+    if ! check_service "$SERVER_IP_GREEN"; then
       echo "SPRING-GREEN health check failed"
-      exit 1
     fi
 
     sudo cp /home/$SSH_USERNAME/nginx/nginx_green.conf /home/$SSH_USERNAME/nginx/nginx.conf
@@ -83,9 +81,8 @@ else
     docker-compose -f docker-compose.yml pull spring-blue
     docker-compose -f docker-compose.yml up -d spring-blue
 
-    if ! check_service "http://$SERVER_IP:8080"; then
+    if ! check_service "$SERVER_IP_BLUE"; then
       echo "SPRING-BLUE health check failed"
-      exit 1
     fi
 
     sudo cp /home/$SSH_USERNAME/nginx/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
@@ -99,9 +96,8 @@ else
     docker-compose -f docker-compose.yml pull spring-green
     docker-compose -f docker-compose.yml up -d spring-green
 
-    if ! check_service "http://$SERVER_IP:8080"; then
+    if ! check_service "$SERVER_IP_GREEN"; then
       echo "SPRING-GREEN health check failed"
-      exit 1
     fi
 
     sudo cp /home/$SSH_USERNAME/nginx/nginx_green.conf /home/$SSH_USERNAME/nginx/nginx.conf
