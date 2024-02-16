@@ -14,6 +14,27 @@ fi
 # 현재 실행 중인 컨테이너의 이미지 ID를 가져옴
 running_images=$(docker ps --format "{{.Image}}")
 
+# 중지된 컨테이너 목록 조회
+docker ps -a -f "status=exited"
+
+# 컨테이너 삭제 여부 확인
+echo "Do you want to remove all stopped containers? [y/n]"
+read answer
+
+# 소문자로 변환하여 처리하기 쉽게 만들기
+answer=$(echo "$answer" | tr '[:upper:]' '[:lower:]')
+
+# 사용자의 답변에 따라 분기
+if [ "$answer" == "y" ]; then
+    echo "Removing all stopped containers..."
+    docker container prune -f
+    echo "All stopped containers have been removed."
+elif [ "$answer" == "n" ]; then
+    echo "Operation canceled."
+else
+    echo "Invalid input. Operation canceled."
+fi
+
 # 모든 이미지를 검사
 for image in $(docker images --format "{{.Repository}}:{{.Tag}}@{{.ID}}"); do
     repo=$(echo $image | cut -d':' -f1)
@@ -25,7 +46,7 @@ for image in $(docker images --format "{{.Repository}}:{{.Tag}}@{{.ID}}"); do
         # 현재 실행 중인 컨테이너에서 사용되고 있지 않은지 확인
         if [[ ! $running_images =~ $image_id ]]; then
             echo "Delete Image: $image"
-            docker rmi $image_id
+            docker rmi -f $image_id
         else
             echo "Image in use, skipping...: $image"
         fi
