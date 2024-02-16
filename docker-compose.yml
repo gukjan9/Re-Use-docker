@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   nginx:
-    image: ${DOCKER_USERNAME}/${NGINX_CONTAINER_NAME}:1.0.0
+    image: ${DOCKER_USERNAME}/${NGINX_CONTAINER_NAME}:latest
     container_name: ${NGINX_CONTAINER_NAME}
     restart: always
     env_file:
