@@ -43,7 +43,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   echo "$os_version"
 
   if [ -z "$IS_BLUE" ];then
-    docker compose -f docker-compose.pi.yml down spring-blue
+    docker compose -f docker-compose.pi.yml down spring-green
     docker compose -f docker-compose.pi.yml pull spring-blue
     docker compose -f docker-compose.pi.yml up -d spring-blue
 
@@ -52,9 +52,6 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     if ! check_service "$SERVER_IP_BLUE"; then
       echo "SPRING-BLUE health check failed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
-      docker exec $NGINX_CONTAINER_NAME nginx -s reload
-
       docker compose stop spring-blue
       docker compose rm -f spring-blue
     else
@@ -68,28 +65,25 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     fi
 
   else
-    docker compose -f docker-compose.pi.yml down spring-green
+    docker compose -f docker-compose.pi.yml down spring-blue
     docker compose -f docker-compose.pi.yml pull spring-green
     docker compose -f docker-compose.pi.yml up -d spring-green
 
     sleep 30
 
-    if ! check_service "$SERVER_IP_BLUE"; then
-      echo "SPRING-BLUE health check failed"
+    if ! check_service "$SERVER_IP_GREEN"; then
+      echo "SPRING-GREEN health check failed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
+      docker compose stop spring-green
+      docker compose rm -f spring-green
+    else
+      echo "SPRING-GREEN health check succeed"
+
+      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_green.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       docker compose stop spring-blue
       docker compose rm -f spring-blue
-    else
-      echo "SPRING-BLUE health check succeed"
-
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
-      docker exec $NGINX_CONTAINER_NAME nginx -s reload
-
-      docker compose stop spring-green
-      docker compose rm -f spring-green
     fi
   fi
 
@@ -97,7 +91,7 @@ else
   echo "$os_version"
 
   if [ -z "$IS_BLUE" ];then
-    docker-compose -f docker-compose.yml down spring-blue
+    docker-compose -f docker-compose.yml down spring-green
     docker-compose -f docker-compose.yml pull spring-blue
     docker-compose -f docker-compose.yml up -d spring-blue
 
@@ -106,9 +100,6 @@ else
     if ! check_service "$SERVER_IP_BLUE"; then
       echo "SPRING-BLUE health check failed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
-      docker exec $NGINX_CONTAINER_NAME nginx -s reload
-
       docker compose stop spring-blue
       docker compose rm -f spring-blue
     else
@@ -122,28 +113,25 @@ else
     fi
 
   else
-    docker-compose -f docker-compose.yml down spring-green
+    docker-compose -f docker-compose.yml down spring-blue
     docker-compose -f docker-compose.yml pull spring-green
     docker-compose -f docker-compose.yml up -d spring-green
 
     sleep 30
 
-    if ! check_service "$SERVER_IP_BLUE"; then
-      echo "SPRING-BLUE health check failed"
+    if ! check_service "$SERVER_IP_GREEN"; then
+      echo "SPRING-GREEN health check failed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
+      docker compose stop spring-green
+      docker compose rm -f spring-green
+    else
+      echo "SPRING-GREEN health check succeed"
+
+      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_green.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       docker compose stop spring-blue
       docker compose rm -f spring-blue
-    else
-      echo "SPRING-BLUE health check succeed"
-
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
-      docker exec $NGINX_CONTAINER_NAME nginx -s reload
-
-      docker compose stop spring-green
-      docker compose rm -f spring-green
     fi
   fi
 fi
