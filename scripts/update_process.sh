@@ -52,7 +52,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     if ! check_service "$SERVER_IP_BLUE"; then
       echo "SPRING-BLUE health check failed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
+      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       docker compose stop spring-blue
@@ -60,7 +60,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     else
       echo "SPRING-BLUE health check succeed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
+      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       docker compose stop spring-green
@@ -77,7 +77,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     if ! check_service "$SERVER_IP_BLUE"; then
       echo "SPRING-BLUE health check failed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
+      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       docker compose stop spring-blue
@@ -85,7 +85,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     else
       echo "SPRING-BLUE health check succeed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
+      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       docker compose stop spring-green
@@ -106,7 +106,7 @@ else
     if ! check_service "$SERVER_IP_BLUE"; then
       echo "SPRING-BLUE health check failed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
+      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       docker compose stop spring-blue
@@ -114,7 +114,7 @@ else
     else
       echo "SPRING-BLUE health check succeed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
+      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       docker compose stop spring-green
@@ -131,7 +131,7 @@ else
     if ! check_service "$SERVER_IP_BLUE"; then
       echo "SPRING-BLUE health check failed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
+      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       docker compose stop spring-blue
@@ -139,7 +139,7 @@ else
     else
       echo "SPRING-BLUE health check succeed"
 
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/nginx.conf
+      sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/nginx.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       docker compose stop spring-green
