@@ -43,7 +43,6 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   echo "$os_version"
 
   if [ -z "$IS_BLUE" ];then
-    docker compose -f docker-compose.pi.yml down spring-green
     docker compose -f docker-compose.pi.yml pull spring-blue
     docker compose -f docker-compose.pi.yml up -d spring-blue
 
@@ -65,7 +64,6 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     fi
 
   else
-    docker compose -f docker-compose.pi.yml down spring-blue
     docker compose -f docker-compose.pi.yml pull spring-green
     docker compose -f docker-compose.pi.yml up -d spring-green
 
@@ -91,7 +89,6 @@ else
   echo "$os_version"
 
   if [ -z "$IS_BLUE" ];then
-    docker-compose -f docker-compose.yml down spring-green
     docker-compose -f docker-compose.yml pull spring-blue
     docker-compose -f docker-compose.yml up -d spring-blue
 
@@ -113,7 +110,6 @@ else
     fi
 
   else
-    docker-compose -f docker-compose.yml down spring-blue
     docker-compose -f docker-compose.yml pull spring-green
     docker-compose -f docker-compose.yml up -d spring-green
 
