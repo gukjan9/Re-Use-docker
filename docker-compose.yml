@@ -56,10 +56,8 @@ services:
       SPRING_DATASOURCE_URL: ${MYSQL_DATABASE_URL}
       SPRING_DATASOURCE_USERNAME: ${MYSQL_DATABASE_USERNAME_BLUE}
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_DATABASE_PASSWORD}
-    # ports:
-    #   - 8081:8080
-    expose:
-      - "8081"
+    ports:
+      - 8081:8080
     networks:
       - network-reuse
     depends_on:
