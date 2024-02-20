@@ -32,7 +32,7 @@ check_service() {
     RETRIES=$((RETRIES+1))
   done;
 
-  echo "Failed to check service after $MAX_RETRIES attempts."
+  echo "Failed to check service after $MAX_RETRIES attempts"
   return 1
 }
 
@@ -46,6 +46,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     docker compose -f docker-compose.pi.yml pull spring-blue
     docker compose -f docker-compose.pi.yml up -d spring-blue
 
+    echo "Running Spring app..."
     sleep 30
 
     if ! check_service "$SERVER_IP_BLUE"; then
@@ -61,12 +62,15 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
 
       docker compose stop spring-green
       docker compose rm -f spring-green
+
+      echo "Service port successfully had switched blue -> green"
     fi
 
   else
     docker compose -f docker-compose.pi.yml pull spring-green
     docker compose -f docker-compose.pi.yml up -d spring-green
 
+    echo "Running Spring app..."
     sleep 30
 
     if ! check_service "$SERVER_IP_GREEN"; then
@@ -82,6 +86,8 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
 
       docker compose stop spring-blue
       docker compose rm -f spring-blue
+
+      echo "Service port successfully had switched green -> blue"
     fi
   fi
 
@@ -92,6 +98,7 @@ else
     docker-compose -f docker-compose.yml pull spring-blue
     docker-compose -f docker-compose.yml up -d spring-blue
 
+    echo "Running Spring app..."
     sleep 30
 
     if ! check_service "$SERVER_IP_BLUE"; then
@@ -107,12 +114,15 @@ else
 
       docker compose stop spring-green
       docker compose rm -f spring-green
+
+      echo "Service port successfully had switched blue -> green"
     fi
 
   else
     docker-compose -f docker-compose.yml pull spring-green
     docker-compose -f docker-compose.yml up -d spring-green
 
+    echo "Running Spring app..."
     sleep 30
 
     if ! check_service "$SERVER_IP_GREEN"; then
@@ -128,6 +138,8 @@ else
 
       docker compose stop spring-blue
       docker compose rm -f spring-blue
+
+      echo "Service port successfully had switched green -> blue"
     fi
   fi
 fi
