@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "***** Executing init_process.sh *****"
+echo "***** Executing update_process.sh *****"
 
 # .env 파일 로드
 echo "Loading .env... [1/6]"
@@ -144,4 +144,4 @@ else
   fi
 fi
 
-echo "***** init_process.sh Ended *****"
+echo "***** update_process.sh Ended *****"
