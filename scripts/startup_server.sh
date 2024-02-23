@@ -18,22 +18,6 @@ echo "Setting port forwarding... [2/5]"
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port $SSH_PORT
 
-# OS 버전을 확인
-# os_version=$(uname -a)
-#
-# if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
-#   echo "$os_version"
-#
-#   # /etc/resolv.conf 파일을 확인하고, nameserver가 없으면 추가
-#   if ! grep -q "nameserver 8.8.8.8" /etc/resolv.conf; then
-#       echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
-#   fi
-#
-#   if ! grep -q "nameserver 8.8.4.4" /etc/resolv.conf; then
-#       echo "nameserver 8.8.4.4" | sudo tee -a /etc/resolv.conf
-#   fi
-# fi
-
 # Docker 재시작
 echo "Restarting docker... [3/5]"
 sudo service docker restart
