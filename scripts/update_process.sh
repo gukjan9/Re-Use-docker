@@ -47,8 +47,12 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     docker compose -f docker-compose.pi.yml up -d spring-blue
 
     echo "Running Spring app..."
-    sleep 30
+    for i in {30..1}; do
+      echo -ne "Waiting for $i seconds...\r"
+      sleep 1
+    done
 
+    echo "Starting health check..."
     if ! check_service "$SERVER_IP_BLUE"; then
       echo "SPRING-BLUE health check failed"
 
@@ -71,7 +75,10 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     docker compose -f docker-compose.pi.yml up -d spring-green
 
     echo "Running Spring app..."
-    sleep 30
+    for i in {30..1}; do
+      echo -ne "Waiting for $i seconds...\r"
+      sleep 1
+    done
 
     if ! check_service "$SERVER_IP_GREEN"; then
       echo "SPRING-GREEN health check failed"
@@ -99,7 +106,10 @@ else
     docker-compose -f docker-compose.yml up -d spring-blue
 
     echo "Running Spring app..."
-    sleep 30
+    for i in {30..1}; do
+      echo -ne "Waiting for $i seconds...\r"
+      sleep 1
+    done
 
     if ! check_service "$SERVER_IP_BLUE"; then
       echo "SPRING-BLUE health check failed"
@@ -123,7 +133,10 @@ else
     docker-compose -f docker-compose.yml up -d spring-green
 
     echo "Running Spring app..."
-    sleep 30
+    for i in {30..1}; do
+      echo -ne "Waiting for $i seconds...\r"
+      sleep 1
+    done
 
     if ! check_service "$SERVER_IP_GREEN"; then
       echo "SPRING-GREEN health check failed"
