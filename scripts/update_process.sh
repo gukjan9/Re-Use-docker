@@ -13,9 +13,11 @@ else
     exit 1
 fi
 
+# 실행되고 있는 이미지 태그 조회
 IS_BLUE=$(docker ps | grep ${SPRING_CONTAINER_NAME}-blue)
 MAX_RETRIES=20
 
+# health check
 check_service() {
   local RETRIES=0
   local URL=$1
@@ -25,7 +27,7 @@ check_service() {
 
     REQUEST=$(curl $URL)
     if [ -n "$REQUEST" ]; then
-      echo "health check success"
+      echo "Health check success"
       return 0
     fi
 
@@ -43,27 +45,27 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   echo "$os_version"
 
   if [ -z "$IS_BLUE" ];then
+    echo "Running lastest server... [2/6]"
     docker compose -f docker-compose.pi.yml pull spring-blue
     docker compose -f docker-compose.pi.yml up -d spring-blue
 
-    echo "Running Spring app..."
+    echo "Running Spring app... [3/6]"
     for i in {30..1}; do
       echo -ne "Waiting for $i seconds...\r"
       sleep 1
     done
 
-    echo "Starting health check..."
+    echo "Starting health check... [4/6]"
     if ! check_service "$SERVER_IP_BLUE"; then
-      echo "SPRING-BLUE health check failed"
-
       docker compose stop spring-blue
       docker compose rm -f spring-blue
+      echo "Failed to switching server"
     else
-      echo "SPRING-BLUE health check succeed"
-
+      echo "Reloading Nginx... [5/6]"
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
+      echo "Shutting down the previous server... [6/6]"
       docker compose stop spring-green
       docker compose rm -f spring-green
 
@@ -71,26 +73,27 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     fi
 
   else
+    echo "Running lastest server... [2/6]"
     docker compose -f docker-compose.pi.yml pull spring-green
     docker compose -f docker-compose.pi.yml up -d spring-green
 
-    echo "Running Spring app..."
+    echo "Running Spring app... [3/6]"
     for i in {30..1}; do
       echo -ne "Waiting for $i seconds...\r"
       sleep 1
     done
 
+    echo "Starting health check... [4/6]"
     if ! check_service "$SERVER_IP_GREEN"; then
-      echo "SPRING-GREEN health check failed"
-
       docker compose stop spring-green
       docker compose rm -f spring-green
+      echo "Failed to switching server"
     else
-      echo "SPRING-GREEN health check succeed"
-
+      echo "Reloading Nginx... [5/6]"
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_green.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
+      echo "Shutting down the previous server... [6/6]"
       docker compose stop spring-blue
       docker compose rm -f spring-blue
 
@@ -102,26 +105,27 @@ else
   echo "$os_version"
 
   if [ -z "$IS_BLUE" ];then
+    echo "Running lastest server... [2/6]"
     docker-compose -f docker-compose.yml pull spring-blue
     docker-compose -f docker-compose.yml up -d spring-blue
 
-    echo "Running Spring app..."
+    echo "Running Spring app... [3/6]"
     for i in {30..1}; do
       echo -ne "Waiting for $i seconds...\r"
       sleep 1
     done
 
+    echo "Starting health check... [4/6]"
     if ! check_service "$SERVER_IP_BLUE"; then
-      echo "SPRING-BLUE health check failed"
-
       docker compose stop spring-blue
       docker compose rm -f spring-blue
+      echo "Failed to switching server"
     else
-      echo "SPRING-BLUE health check succeed"
-
+      echo "Reloading Nginx... [5/6]"
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_blue.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
+      echo "Shutting down the previous server... [6/6]"
       docker compose stop spring-green
       docker compose rm -f spring-green
 
@@ -129,26 +133,27 @@ else
     fi
 
   else
+    echo "Running lastest server... [2/6]"
     docker-compose -f docker-compose.yml pull spring-green
     docker-compose -f docker-compose.yml up -d spring-green
 
-    echo "Running Spring app..."
+    echo "Running Spring app... [3/6]"
     for i in {30..1}; do
       echo -ne "Waiting for $i seconds...\r"
       sleep 1
     done
 
+    echo "Starting health check... [4/6]"
     if ! check_service "$SERVER_IP_GREEN"; then
-      echo "SPRING-GREEN health check failed"
-
       docker compose stop spring-green
       docker compose rm -f spring-green
+      echo "Failed to switching server"
     else
-      echo "SPRING-GREEN health check succeed"
-
+      echo "Reloading Nginx... [5/6]"
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/nginx_green.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
+      echo "Shutting down the previous server... [6/6]"
       docker compose stop spring-blue
       docker compose rm -f spring-blue
 
