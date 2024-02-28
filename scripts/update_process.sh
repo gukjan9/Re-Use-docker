@@ -68,7 +68,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
       docker compose stop spring-green
       docker compose rm -f spring-green
 
-      echo "Service port successfully had switched blue -> green"
+      echo "Service port successfully had switched green -> blue"
     fi
 
   else
@@ -95,7 +95,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
       docker compose stop spring-blue
       docker compose rm -f spring-blue
 
-      echo "Service port successfully had switched green -> blue"
+      echo "Service port successfully had switched blue -> green"
     fi
   fi
 
@@ -126,7 +126,7 @@ else
       docker compose stop spring-green
       docker compose rm -f spring-green
 
-      echo "Service port successfully had switched blue -> green"
+      echo "Service port successfully had switched green -> blue"
     fi
 
   else
@@ -153,7 +153,7 @@ else
       docker compose stop spring-blue
       docker compose rm -f spring-blue
 
-      echo "Service port successfully had switched green -> blue"
+      echo "Service port successfully had switched blue -> green"
     fi
   fi
 fi
