@@ -22,7 +22,7 @@ check_service() {
   local RETRIES=0
   local URL=$1
   while [ $RETRIES -lt $MAX_RETRIES ]; do
-    echo "Checking service at $URL... (attempt: $((RETRIES+1)))"
+    echo "Checking service... (attempt: $((RETRIES+1)))"
     sleep 3
 
     REQUEST=$(curl $URL)
