@@ -62,9 +62,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     else
       echo "Reloading Nginx... [4/5]"
       export SERVICE_URL=${SERVICE_URL_BLUE}
-      export DOLLAR="$"
-      envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/default.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
+      envsubst < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       echo "Shutting down the previous server... [5/5]"
@@ -92,9 +90,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     else
       echo "Reloading Nginx... [4/5]"
       export SERVICE_URL=${SERVICE_URL_GREEN}
-      export DOLLAR="$"
-      envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/default.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
+      envsubst < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       echo "Shutting down the previous server... [5/5]"
@@ -126,9 +122,7 @@ else
     else
       echo "Reloading Nginx... [4/5]"
       export SERVICE_URL=${SERVICE_URL_BLUE}
-      export DOLLAR="$"
-      envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/default.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
+      envsubst < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       echo "Shutting down the previous server... [5/5]"
@@ -156,9 +150,7 @@ else
     else
       echo "Reloading Nginx... [4/5]"
       export SERVICE_URL=${SERVICE_URL_GREEN}
-      export DOLLAR="$"
-      envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
-      sudo cp /home/$SSH_USERNAME/nginx/conf.d/default.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
+      envsubst < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
       echo "Shutting down the previous server... [5/5]"
