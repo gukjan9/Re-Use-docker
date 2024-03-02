@@ -62,7 +62,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     else
       echo "Reloading Nginx... [4/5]"
       export SERVICE_URL=${SERVICE_URL_BLUE}
-      envsubst '${SERVICE_URL}' < default.conf.template > default.conf
+      envsubst '${SERVICE_URL}' < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/default.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
@@ -91,7 +91,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     else
       echo "Reloading Nginx... [4/5]"
       export SERVICE_URL=${SERVICE_URL_GREEN}
-      envsubst '${SERVICE_URL}' < default.conf.template > default.conf
+      envsubst '${SERVICE_URL}' < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/default.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
@@ -124,7 +124,7 @@ else
     else
       echo "Reloading Nginx... [4/5]"
       export SERVICE_URL=${SERVICE_URL_BLUE}
-      envsubst '${SERVICE_URL}' < default.conf.template > default.conf
+      envsubst '${SERVICE_URL}' < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/default.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
@@ -153,7 +153,7 @@ else
     else
       echo "Reloading Nginx... [4/5]"
       export SERVICE_URL=${SERVICE_URL_GREEN}
-      envsubst '${SERVICE_URL}' < default.conf.template > default.conf
+      envsubst '${SERVICE_URL}' < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       sudo cp /home/$SSH_USERNAME/nginx/conf.d/default.conf /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
