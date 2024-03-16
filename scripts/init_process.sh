@@ -34,18 +34,18 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
 
 else
   echo "$os_version"
-  docker-compose -f docker-compose.yml down
-  docker-compose -f docker-compose.yml pull
+  docker compose -f docker-compose.yml down
+  docker compose -f docker-compose.yml pull
 
   BLUE_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:blue")
   GREEN_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:green")
 
   if [[ "$BLUE_CREATED" > "$GREEN_CREATED" ]]; then
     echo "Running SPRING-BLUE"
-    docker-compose -f docker-compose.yml up -d nginx redis mysql spring-blue
+    docker compose -f docker-compose.yml up -d nginx redis mysql spring-blue
   else
     echo "Running SPRING_GREEN"
-    docker-compose -f docker-compose.yml up -d nginx redis mysql spring-green
+    docker compose -f docker-compose.yml up -d nginx redis mysql spring-green
   fi
 fi
 
