@@ -49,4 +49,7 @@ else
   fi
 fi
 
+echo "Sleeping for 30 seconds..."
+sleep 30
+
 echo "***** init_process.sh Ended *****"
