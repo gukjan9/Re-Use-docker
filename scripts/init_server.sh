@@ -31,7 +31,7 @@ os_version=$(uname -a)
 echo "Installing Docker... [3/9]"
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install curl apt-transport-https ca-certificates gnupg-agent software-properties-common
+sudo apt-get install -y curl apt-transport-https ca-certificates gnupg-agent software-properties-common
 
 if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   echo "$os_version"
@@ -77,7 +77,8 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   sudo apt install docker-compose
 else
   echo "$os_version"
-  sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+  sudo apt-get update
+  sudo apt-get install docker-compose-plugin
 fi
 
 sudo chmod +x /usr/local/bin/docker-compose
