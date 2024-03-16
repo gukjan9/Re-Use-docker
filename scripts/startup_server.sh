@@ -1,5 +1,7 @@
 #!/bin/bash
 
+tail -f cron_logs/startup_server_log.txt
+
 echo "***** Executing startup_server.sh *****"
 
 # .env 파일 로드
