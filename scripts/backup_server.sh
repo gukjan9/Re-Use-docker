@@ -52,6 +52,8 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
 else
   echo "$os_version"
 
+  chmod 400 $TARGET_SERVER_KEYFILE_DIR
+
   # 이전하려는 서버에 연결 및 파일 전송
   echo "Creating backup directory on the target server for migration... [4/7]"
   ssh -i $TARGET_SERVER_KEYFILE_DIR $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP -p $TARGET_SERVER_PORT -o StrictHostKeyChecking=no "mkdir -p /home/$TARGET_SERVER_USERNAME/backup" && echo "Backup directory created successfully on the target server"
