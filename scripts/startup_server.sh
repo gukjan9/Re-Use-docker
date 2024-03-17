@@ -2,7 +2,7 @@
 
 echo "***** Executing startup_server.sh *****"
 
-tail -f cron_logs/startup_server_log.txt
+sudo tail -f cron_logs/startup_server_log.txt
 
 # .env 파일 로드
 echo "Loading .env... [1/5]"
