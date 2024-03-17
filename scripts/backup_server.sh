@@ -15,7 +15,7 @@ fi
 
 # 이미지 업로드
 echo "Uploading latest images... [2/7]"
-#source ./scripts/upload_latest_images.sh
+source ./scripts/upload_latest_images.sh
 
 # backup 폴더 생성
 folder_path="/home/$SSH_USERNAME/backup"
@@ -43,8 +43,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/backup/backup.sql $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/backup && echo "Transfer successful!" || echo "Transfer failed"
 
   echo "Transferring Nginx data... [6/7]"
-  sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT -r /home/$SSH_USERNAME/nginx/conf.d/service-url-blue.inc $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
-  sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT -r /home/$SSH_USERNAME/nginx/conf.d/service-url-green.inc $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
+  sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT -r /home/$SSH_USERNAME/nginx/conf.d/default.conf $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
 
   echo "Transferring env files... [7/7]"
   sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/.env $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
@@ -63,8 +62,7 @@ else
   scp -i $TARGET_SERVER_KEYFILE_DIR -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/backup/backup.sql $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/backup && echo "Transfer successful!" || echo "Transfer failed"
 
   echo "Transferring Nginx data... [6/7]"
-  scp -i $TARGET_SERVER_KEYFILE_DIR -P $TARGET_SERVER_PORT -r /home/$SSH_USERNAME/nginx/conf.d/service-url-blue.inc $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
-  scp -i $TARGET_SERVER_KEYFILE_DIR -P $TARGET_SERVER_PORT -r /home/$SSH_USERNAME/nginx/conf.d/service-url-green.inc $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
+  scp -i $TARGET_SERVER_KEYFILE_DIR -P $TARGET_SERVER_PORT -r /home/$SSH_USERNAME/nginx/conf.d/default.conf $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
 
   echo "Transferring env files... [7/7]"
   scp -i $TARGET_SERVER_KEYFILE_DIR -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/.env $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
