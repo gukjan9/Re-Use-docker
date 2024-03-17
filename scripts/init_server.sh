@@ -10,13 +10,13 @@
 echo "***** Executing init_server.sh *****"
 
 # env 파일 이동
-echo "Moving env files... [1/10]"
+echo "Moving env files... [1/11]"
 sudo mv set_env.sh ~/scripts
 sudo mv service-url-blue.inc ~/nginx/conf.d
 sudo mv service-url-green.inc ~/nginx/conf.d
 
 # .env 파일 로드
-echo "Loading .env... [2/10]"
+echo "Loading .env... [2/11]"
 ENV_FILE="$HOME/.env"
 if [ -f "$ENV_FILE" ]; then
     export $(cat "$ENV_FILE" | xargs)
@@ -30,7 +30,7 @@ fi
 os_version=$(uname -a)
 
 # 필요한 패키지 설치
-echo "Installing Docker... [3/10]"
+echo "Installing Docker... [3/11]"
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install -y curl apt-transport-https ca-certificates gnupg-agent software-properties-common
@@ -71,7 +71,7 @@ docker --version
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 
 # Docker-compose 설치
-echo "Installing Docker-Compose... [4/10]"
+echo "Installing Docker-Compose... [4/11]"
 if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   echo "$os_version"
   sudo apt-get update
@@ -86,10 +86,10 @@ fi
 sudo chmod +x /usr/local/bin/docker-compose
 
 # MySQL 데이터 복원
-echo "Restoring MySQL data... [5/10]"
+echo "Restoring MySQL data... [5/11]"
 source ./scripts/restore_data.sh
 
-echo "Setting Crontab... [6/10]"
+echo "Setting Crontab... [6/11]"
 SCRIPT="/home/$TARGET_SERVER_USERNAME/scripts/startup_server.sh"
 chmod +x $SCRIPT
 
@@ -106,25 +106,31 @@ else
 fi
 
 # Docker 네트워크 생성
-echo "Creating docker network... [7/10]"
+echo "Creating docker network... [7/11]"
 docker network create --driver bridge $DOCKER_NETWORK
 
 # SSH Port 변경
 # 보안그룹에 포트를 지정해주거나 포트포워딩이 선행 되어야 한다.
-echo "Setting custom ssh port... [8/10]"
+echo "Setting custom ssh port... [8/11]"
 source ./scripts/set_ssh_port.sh
 
 # 추가 패키지 설치
-echo "Installing packages... [9/10]"
+echo "Installing packages... [9/11]"
 
 # swap 영역 생성
-echo "Creating swap file... [10/10]"
+echo "Creating swap file... [10/11]"
 sudo dd if=/dev/zero of=/swapfile bs=128M count=32
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo vi /etc/fstab
 /swapfile swap swap defaults 0 0
 free
+
+# bashrc 에 startup_server_log 로깅 추가
+echo "Tail startup_server_log.txt after reboot... [11/11]"
+if ! grep -q "tail -f ~/cron_logs/startup_server_log.txt" ~/.bashrc; then
+    echo "tail -f ~/cron_logs/startup_server_log.txt" >> ~/.bashrc
+fi
 
 echo "***** init_server.sh Ended *****"
 

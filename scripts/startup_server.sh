@@ -2,8 +2,6 @@
 
 echo "***** Executing startup_server.sh *****"
 
-sudo tail -f cron_logs/startup_server_log.txt
-
 # .env 파일 로드
 echo "Loading .env... [1/5]"
 ENV_FILE="$HOME/.env"
