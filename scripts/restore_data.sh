@@ -38,10 +38,10 @@ else
   echo "$os_version"
 
   # docker pull mysql
-  docker pull mysql
+  docker pull mysql:8.2.0
 
   # restore 용 MySQL 환경변수 재설정
-  MYSQL_IMAGE_NAME="mysql:latest"
+  MYSQL_IMAGE_NAME="mysql:8.2.0"
   MYSQL_DATABASE_PASSWORD=1234
   MYSQL_CONTAINER_NAME="restore_container"
   MYSQL_DATABASE="${MYSQL_DATABASE}"
