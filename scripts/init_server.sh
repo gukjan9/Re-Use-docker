@@ -122,7 +122,11 @@ echo "Creating swap file... [10/11]"
 sudo dd if=/dev/zero of=/swapfile bs=128M count=32
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
-echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab
+if ! grep -q '/swapfile swap swap defaults 0 0' /etc/fstab; then
+    echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab
+else
+    echo "Swap entry already exists in /etc/fstab."
+fi
 free -h
 
 # bashrc 에 startup_server_log 로깅 추가
