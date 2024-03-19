@@ -55,13 +55,13 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     done
 
     echo "Starting health check... [3/5]"
-    if ! check_service "$SERVER_IP_BLUE"; then
+    if ! check_service "http://${SERVER_IP}:${SERVICE_PORT_BLUE}${HEALTH_CHECK}"; then
       docker compose stop spring-blue
       docker compose rm -f spring-blue
       echo "Failed to switching server"
     else
       echo "Reloading Nginx... [4/5]"
-      export SERVICE_URL=${SERVICE_URL}:8081
+      export SERVICE_URL=http://${SERVICE_IP}:${SERVICE_PORT_BLUE}
       envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
@@ -83,13 +83,13 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
     done
 
     echo "Starting health check... [3/5]"
-    if ! check_service "$SERVER_IP_GREEN"; then
+    if ! check_service "http://${SERVER_IP}:${SERVICE_PORT_GREEN}${HEALTH_CHECK}"; then
       docker compose stop spring-green
       docker compose rm -f spring-green
       echo "Failed to switching server"
     else
       echo "Reloading Nginx... [4/5]"
-      export SERVICE_URL=${SERVICE_URL}:8082
+      export SERVICE_URL=http://${SERVICE_IP}:${SERVICE_PORT_GREEN}
       envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
@@ -115,13 +115,13 @@ else
     done
 
     echo "Starting health check... [3/5]"
-    if ! check_service "$SERVER_IP_BLUE"; then
+    if ! check_service "http://${SERVER_IP}:${SERVICE_PORT_BLUE}${HEALTH_CHECK}"; then
       docker compose stop spring-blue
       docker compose rm -f spring-blue
       echo "Failed to switching server"
     else
       echo "Reloading Nginx... [4/5]"
-      export SERVICE_URL=${SERVICE_URL}:8081
+      export SERVICE_URL=http://${SERVICE_IP}:${SERVICE_PORT_BLUE}
       envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
@@ -143,13 +143,13 @@ else
     done
 
     echo "Starting health check... [3/5]"
-    if ! check_service "$SERVER_IP_GREEN"; then
+    if ! check_service "http://${SERVER_IP}:${SERVICE_PORT_GREEN}${HEALTH_CHECK}"; then
       docker compose stop spring-green
       docker compose rm -f spring-green
       echo "Failed to switching server"
     else
       echo "Reloading Nginx... [4/5]"
-      export SERVICE_URL=${SERVICE_URL}:8082
+      export SERVICE_URL=http://${SERVICE_IP}:${SERVICE_PORT_GREEN}
       envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
