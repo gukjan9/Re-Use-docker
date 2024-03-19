@@ -12,8 +12,7 @@ echo "***** Executing init_server.sh *****"
 # env 파일 이동
 echo "Moving env files... [1/11]"
 sudo mv set_env.sh ~/scripts
-sudo mv service-url-blue.inc ~/nginx/conf.d
-sudo mv service-url-green.inc ~/nginx/conf.d
+sudo mv default.conf ~/nginx/conf.d
 
 # .env 파일 로드
 echo "Loading .env... [2/11]"
