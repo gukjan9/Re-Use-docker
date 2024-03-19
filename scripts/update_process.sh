@@ -106,8 +106,8 @@ else
 
   if [ -z "$IS_BLUE" ];then
     echo "Running lastest server... [2/5]"
-    docker-compose -f docker-compose.yml pull spring-blue
-    docker-compose -f docker-compose.yml up -d spring-blue
+    docker compose -f docker-compose.yml pull spring-blue
+    docker compose -f docker-compose.yml up -d spring-blue
 
     for i in {30..1}; do
       echo -ne "Waiting for $i seconds...\r"
@@ -134,8 +134,8 @@ else
 
   else
     echo "Running lastest server... [2/5]"
-    docker-compose -f docker-compose.yml pull spring-green
-    docker-compose -f docker-compose.yml up -d spring-green
+    docker compose -f docker-compose.yml pull spring-green
+    docker compose -f docker-compose.yml up -d spring-green
 
     for i in {30..1}; do
       echo -ne "Waiting for $i seconds...\r"
