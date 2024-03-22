@@ -18,9 +18,10 @@ echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-
 
 MYSQL_CONTAINER_NAME="${MYSQL_CONTAINER_NAME}"
 REDIS_CONTAINER_NAME="${REDIS_CONTAINER_NAME}"
+NGINX_CONTAINER_NAME="${NGINX_CONTAINER_NAME}"
 
 # 특정 컨테이너 이름 설정
-containers_to_upload=("$MYSQL_CONTAINER_NAME" "$REDIS_CONTAINER_NAME")
+containers_to_upload=("$MYSQL_CONTAINER_NAME" "$REDIS_CONTAINER_NAME" "$NGINX_CONTAINER_NAME")
 
 # 선택된 컨테이너만 업로드
 echo "Uploading images... [3/3]"
