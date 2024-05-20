@@ -18,36 +18,78 @@ os_version=$(uname -a)
 
 if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   echo "$os_version"
-  docker compose -f docker-compose.pi.yml down
 
   BLUE_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:blue")
   GREEN_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:green")
 
   if [[ "$BLUE_CREATED" > "$GREEN_CREATED" ]]; then
     echo "Rollbacking to SPRING-GREEN"
-    docker compose -f docker-compose.pi.yml up -d
-    docker compose -f docker-compose.pi.yml down spring-blue
+
+    echo "Reloading Nginx... [4/5]"
+    export SERVICE_URL=http://${SERVER_IP}:${SERVICE_PORT_GREEN}
+    envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
+    docker exec $NGINX_CONTAINER_NAME nginx -s reload
+
+    echo "Shutting down the previous server... [5/5]"
+    docker compose stop spring-blue
+    docker compose rm -f spring-blue
+
+    docker compose -f docker-compose.pi.yml up -d spring-green
+
+    echo "Service port successfully had rollbacked blue -> green"
   else
     echo "Rollbacking to SPRING-BLUE"
-    docker compose -f docker-compose.pi.yml up -d
-    docker compose -f docker-compose.pi.yml down spring-green
+
+    echo "Reloading Nginx... [4/5]"
+    export SERVICE_URL=http://${SERVER_IP}:${SERVICE_PORT_BLUE}
+    envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
+    docker exec $NGINX_CONTAINER_NAME nginx -s reload
+
+    echo "Shutting down the previous server... [5/5]"
+    docker compose stop spring-green
+    docker compose rm -f spring-green
+
+    docker compose -f docker-compose.pi.yml up -d spring-blue
+
+    echo "Service port successfully had rollbacked green -> blue"
   fi
 
 else
   echo "$os_version"
-  docker compose -f docker-compose.yml down
 
   BLUE_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:blue")
   GREEN_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:green")
 
   if [[ "$BLUE_CREATED" > "$GREEN_CREATED" ]]; then
     echo "Rollbacking to SPRING-GREEN"
-    docker compose -f docker-compose.yml up -d
-    docker compose -f docker-compose.yml down spring-blue
+
+    echo "Reloading Nginx... [4/5]"
+    export SERVICE_URL=http://${SERVER_IP}:${SERVICE_PORT_GREEN}
+    envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
+    docker exec $NGINX_CONTAINER_NAME nginx -s reload
+
+    echo "Shutting down the previous server... [5/5]"
+    docker compose stop spring-blue
+    docker compose rm -f spring-blue
+
+    docker compose -f docker-compose.yml up -d spring-green
+
+    echo "Service port successfully had rollbacked blue -> green"
   else
     echo "Rollbacking to SPRING-BLUE"
-    docker compose -f docker-compose.yml up -d
-    docker compose -f docker-compose.yml down spring-green
+
+    echo "Reloading Nginx... [4/5]"
+    export SERVICE_URL=http://${SERVER_IP}:${SERVICE_PORT_BLUE}
+    envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
+    docker exec $NGINX_CONTAINER_NAME nginx -s reload
+
+    echo "Shutting down the previous server... [5/5]"
+    docker compose stop spring-green
+    docker compose rm -f spring-green
+
+    docker compose -f docker-compose.yml up -d spring-blue
+
+    echo "Service port successfully had rollbacked green -> blue"
   fi
 fi
 
