@@ -18,6 +18,7 @@ os_version=$(uname -a)
 
 if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   echo "$os_version"
+  docker compose -f docker-compose.pi.yml down
 
   BLUE_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:blue")
   GREEN_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:green")
@@ -34,6 +35,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
 
 else
   echo "$os_version"
+  docker compose -f docker-compose.yml down
 
   BLUE_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:blue")
   GREEN_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:green")
