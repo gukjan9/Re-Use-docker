@@ -40,12 +40,12 @@ else
 
   if [[ "$BLUE_CREATED" > "$GREEN_CREATED" ]]; then
     echo "Rollbacking to SPRING-GREEN"
-    docker compose -f docker-compose.pi.yml down spring-blue
-    docker compose -f docker-compose.pi.yml up -d spring-green
+    docker compose -f docker-compose.yml down spring-blue
+    docker compose -f docker-compose.yml up -d spring-green
   else
     echo "Rollbacking to SPRING-BLUE"
-    docker compose -f docker-compose.pi.yml down spring-green
-    docker compose -f docker-compose.pi.yml up -d spring-blue
+    docker compose -f docker-compose.yml down spring-green
+    docker compose -f docker-compose.yml up -d spring-blue
   fi
 fi
 
