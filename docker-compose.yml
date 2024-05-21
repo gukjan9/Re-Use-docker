@@ -24,8 +24,7 @@ services:
     env_file:
      - .env
     environment:
-      - DOMAIN_NAME1
-      - DOMAIN_NAME2
+      - DOMAIN_NAME
       - EMAIL_ADDRESS
     volumes:
       - '/etc/letsencrypt:/etc/letsencrypt'
@@ -33,7 +32,7 @@ services:
     networks:
         - network-reuse
     command: >
-      certonly -d ${DOMAIN_NAME1} -d ${DOMAIN_NAME2}
+      certonly -d ${DOMAIN_NAME}
       --manual
       --preferred-challenges dns
       --server https://acme-v02.api.letsencrypt.org/directory
