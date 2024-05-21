@@ -1,7 +1,7 @@
 server {
   listen 80;
   listen [::]:80;
-  server_name reuse.kro.kr;
+  server_name reuse.kro.kr www.reuse.kro.kr;
 
   location /api {
     proxy_pass ${SERVICE_URL};
@@ -10,4 +10,9 @@ server {
     proxy_set_header X-Real_IP $remote_addr;
     proxy_redirect off;
  }
+
+ location ~ /.well-known/acme-challenge {
+         allow all;
+         root /var/www/certbot;
+     }
 }

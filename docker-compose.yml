@@ -12,11 +12,25 @@ services:
         - 443:443
     volumes:
       - /home/${SSH_USERNAME}/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - /home/${SSH_USERNAME}/ssl/certbot/conf:/etc/nginx/ssl
+      - /home/${SSH_USERNAME}/ssl/certbot/data:/var/www/certbot
     networks:
         - network-reuse
     depends_on:
       - spring-blue
       - spring-green
+
+    certbot:
+    container_name: certbot
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - /home/${SSH_USERNAME}/ssl/certbot/conf:/etc/letsencrypt
+      - /home/${SSH_USERNAME}/ssl/certbot/logs:/var/log/letsencrypt
+      - /home/${SSH_USERNAME}/ssl/certbot/data:/var/www/certbot
+    networks:
+      - network-reuse
+    command: certonly --webroot --webroot-path=/var/www/certbot --email gukjang1997@gmail.com --agree-tos --no-eff-email -d reuse.kro.kr
 
   redis:
       image: ${DOCKER_USERNAME}/${REDIS_CONTAINER_NAME}:latest
