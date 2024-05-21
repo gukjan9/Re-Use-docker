@@ -33,7 +33,7 @@ http {
     ssl_session_timeout 10m;
 
     location /api {
-      proxy_pass http://${SERVICE_URL};
+      proxy_pass http://app;
     }
   }
 }
