@@ -38,6 +38,7 @@ services:
       --server https://acme-v02.api.letsencrypt.org/directory
       --agree-tos
       --email ${EMAIL_ADDRESS}
+      --no-eff-email
     tty: true
     stdin_open: true
 
