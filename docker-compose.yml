@@ -30,7 +30,7 @@ services:
       - /home/${SSH_USERNAME}/ssl/certbot/data:/var/www/certbot
     networks:
       - network-reuse
-    command: certonly --webroot --webroot-path=/var/www/certbot --email gukjang1997@gmail.com --agree-tos --no-eff-email -d reuse.kro.kr
+    command: certonly --staging --webroot --webroot-path=/var/www/certbot --email gukjang1997@gmail.com --agree-tos --no-eff-email -d reuse.kro.kr
 
   redis:
       image: ${DOCKER_USERNAME}/${REDIS_CONTAINER_NAME}:latest
