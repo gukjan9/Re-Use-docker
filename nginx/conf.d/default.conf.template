@@ -32,7 +32,7 @@ http {
     ssl_session_cache shared:SSL:10m;
     ssl_session_timeout 10m;
 
-    location /api {
+    location / {
       proxy_pass http://app;
     }
   }
