@@ -32,7 +32,7 @@ services:
     networks:
         - network-reuse
     command: >
-      certonly -d ${DOMAIN_NAME}
+      certonly -d ${DOMAIN_NAME1} -d ${DOMAIN_NAME2}
       --manual
       --preferred-challenges dns
       --server https://acme-v02.api.letsencrypt.org/directory
