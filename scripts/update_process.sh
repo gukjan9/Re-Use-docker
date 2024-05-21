@@ -61,7 +61,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
       echo "Failed to switching server"
     else
       echo "Reloading Nginx... [4/5]"
-      export SERVICE_URL=http://${SERVER_IP}:${SERVICE_PORT_BLUE}
+      export SERVICE_URL=${SERVER_IP}:${SERVICE_PORT_BLUE}
       envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
@@ -89,7 +89,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
       echo "Failed to switching server"
     else
       echo "Reloading Nginx... [4/5]"
-      export SERVICE_URL=http://${SERVER_IP}:${SERVICE_PORT_GREEN}
+      export SERVICE_URL=${SERVER_IP}:${SERVICE_PORT_GREEN}
       envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
@@ -121,7 +121,7 @@ else
       echo "Failed to switching server"
     else
       echo "Reloading Nginx... [4/5]"
-      export SERVICE_URL=http://${SERVER_IP}:${SERVICE_PORT_BLUE}
+      export SERVICE_URL=${SERVER_IP}:${SERVICE_PORT_BLUE}
       envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
@@ -149,7 +149,7 @@ else
       echo "Failed to switching server"
     else
       echo "Reloading Nginx... [4/5]"
-      export SERVICE_URL=http://${SERVER_IP}:${SERVICE_PORT_GREEN}
+      export SERVICE_URL=${SERVER_IP}:${SERVICE_PORT_GREEN}
       envsubst "\$SERVICE_URL" < /home/$SSH_USERNAME/nginx/conf.d/default.conf.template > /home/$SSH_USERNAME/nginx/conf.d/default.conf
       docker exec $NGINX_CONTAINER_NAME nginx -s reload
 
