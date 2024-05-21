@@ -20,7 +20,7 @@ services:
       - spring-blue
       - spring-green
 
-    certbot:
+  certbot:
     container_name: certbot
     image: certbot/certbot
     restart: unless-stopped
