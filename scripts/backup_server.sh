@@ -27,8 +27,8 @@ docker exec -i $MYSQL_CONTAINER_NAME bash -c "mysqldump -u $MYSQL_DATABASE_USERN
 docker cp $MYSQL_CONTAINER_NAME:/home/backup.sql /home/$SSH_USERNAME/backup/backup.sql
 
 # 권한을 일시적으로 변경
-sudo chmod 644 /home/$SSH_USERNAME/nginx/fullchain.pem
-sudo chmod 644 /home/$SSH_USERNAME/nginx/privkey.pem
+sudo chmod 644 /home/$SSH_USERNAME/nginx/conf.d/fullchain.pem
+sudo chmod 644 /home/$SSH_USERNAME/nginx/conf.d/privkey.pem
 
 # OS 버전을 확인
 os_version=$(uname -a)
@@ -74,7 +74,7 @@ else
 fi
 
 # 권한을 원래대로 변경
-sudo chmod 640 /home/$SSH_USERNAME/nginx/fullchain.pem
-sudo chmod 600 /home/$SSH_USERNAME/nginx/privkey.pem
+sudo chmod 640 /home/$SSH_USERNAME/nginx/conf.d/fullchain.pem
+sudo chmod 600 /home/$SSH_USERNAME/nginx/conf.d/privkey.pem
 
 echo "***** backup_server.sh Ended *****"
