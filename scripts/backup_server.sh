@@ -26,6 +26,10 @@ echo "Backing up MySQL data... [3/7]"
 docker exec -i $MYSQL_CONTAINER_NAME bash -c "mysqldump -u $MYSQL_DATABASE_USERNAME -p$MYSQL_DATABASE_PASSWORD $MYSQL_DATABASE > /home/backup.sql"
 docker cp $MYSQL_CONTAINER_NAME:/home/backup.sql /home/$SSH_USERNAME/backup/backup.sql
 
+# 권한을 일시적으로 변경
+sudo chmod 644 /home/$SSH_USERNAME/nginx/fullchain.pem
+sudo chmod 644 /home/$SSH_USERNAME/nginx/privkey.pem
+
 # OS 버전을 확인
 os_version=$(uname -a)
 
@@ -68,5 +72,9 @@ else
   scp -i $TARGET_SERVER_KEYFILE_DIR -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/.env $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
   scp -i $TARGET_SERVER_KEYFILE_DIR -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/scripts/set_env.sh $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
 fi
+
+# 권한을 원래대로 변경
+sudo chmod 640 /home/$SSH_USERNAME/nginx/fullchain.pem
+sudo chmod 600 /home/$SSH_USERNAME/nginx/privkey.pem
 
 echo "***** backup_server.sh Ended *****"
