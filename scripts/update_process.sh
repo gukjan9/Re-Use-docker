@@ -13,8 +13,20 @@ else
     exit 1
 fi
 
-# 실행되고 있는 이미지 태그 조회
-IS_BLUE=$(docker ps | grep ${SPRING_CONTAINER_NAME}-blue)
+# OS 버전을 확인
+os_version=$(uname -a)
+
+if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
+  echo "$os_version"
+  docker compose -f docker-compose.pi.yml pull spring-blue spring-green
+else
+  docker compose -f docker-compose.yml pull spring-blue spring-green
+fi
+
+# 이미지 생성일 확인
+BLUE_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:blue")
+GREEN_CREATED=$(docker inspect --format '{{ .Created }}' "${DOCKER_USERNAME}/${SPRING_CONTAINER_NAME}:green")
+
 MAX_RETRIES=20
 
 # health check
@@ -38,13 +50,12 @@ check_service() {
   return 1
 }
 
-# OS 버전을 확인
-os_version=$(uname -a)
+
 
 if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   echo "$os_version"
 
-  if [ -z "$IS_BLUE" ];then
+  if [[ "$BLUE_CREATED" > "$GREEN_CREATED" ]]; then
     echo "Running lastest service... [2/5]"
     docker compose -f docker-compose.pi.yml pull spring-blue
     docker compose -f docker-compose.pi.yml up -d spring-blue
@@ -104,7 +115,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
 else
   echo "$os_version"
 
-  if [ -z "$IS_BLUE" ];then
+  if [[ "$BLUE_CREATED" > "$GREEN_CREATED" ]]; then
     echo "Running lastest server... [2/5]"
     docker compose -f docker-compose.yml pull spring-blue
     docker compose -f docker-compose.yml up -d spring-blue
