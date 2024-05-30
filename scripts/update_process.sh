@@ -57,7 +57,6 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
 
   if [[ "$BLUE_CREATED" > "$GREEN_CREATED" ]]; then
     echo "Running lastest service... [2/5]"
-    docker compose -f docker-compose.pi.yml pull spring-blue
     docker compose -f docker-compose.pi.yml up -d spring-blue
 
     for i in {30..1}; do
@@ -85,7 +84,6 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
 
   else
     echo "Running lastest service... [2/5]"
-    docker compose -f docker-compose.pi.yml pull spring-green
     docker compose -f docker-compose.pi.yml up -d spring-green
 
     for i in {30..1}; do
@@ -117,7 +115,6 @@ else
 
   if [[ "$BLUE_CREATED" > "$GREEN_CREATED" ]]; then
     echo "Running lastest server... [2/5]"
-    docker compose -f docker-compose.yml pull spring-blue
     docker compose -f docker-compose.yml up -d spring-blue
 
     for i in {30..1}; do
@@ -145,7 +142,6 @@ else
 
   else
     echo "Running lastest server... [2/5]"
-    docker compose -f docker-compose.yml pull spring-green
     docker compose -f docker-compose.yml up -d spring-green
 
     for i in {30..1}; do
