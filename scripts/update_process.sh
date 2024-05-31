@@ -50,11 +50,7 @@ check_service() {
   return 1
 }
 
-
-
 if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
-  echo "$os_version"
-
   if [[ "$BLUE_CREATED" > "$GREEN_CREATED" ]]; then
     echo "Running lastest service... [2/5]"
     docker compose -f docker-compose.pi.yml up -d spring-blue
@@ -111,8 +107,6 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   fi
 
 else
-  echo "$os_version"
-
   if [[ "$BLUE_CREATED" > "$GREEN_CREATED" ]]; then
     echo "Running lastest server... [2/5]"
     docker compose -f docker-compose.yml up -d spring-blue
