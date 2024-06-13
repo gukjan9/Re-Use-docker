@@ -4,7 +4,7 @@ echo "***** Executing upload_latest_images.sh *****"
 
 # .env 파일 로드
 echo "Loading .env... [1/3]"
-ENV_FILE="$HOME/.env"
+ENV_FILE="$HOME/.env_v1"
 if [ -f "$ENV_FILE" ]; then
     export $(cat "$ENV_FILE" | xargs)
 else

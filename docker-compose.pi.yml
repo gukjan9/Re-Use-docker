@@ -4,7 +4,7 @@ services:
     container_name: ${NGINX_CONTAINER_NAME}
     restart: always
     env_file:
-     - .env
+     - .env_v1
     ports:
         - 80:80
         - 443:443
@@ -23,7 +23,7 @@ services:
       container_name: ${REDIS_CONTAINER_NAME}
       restart: always
       env_file:
-       - .env
+       - .env_v1
       ports:
           - 6379:6379
       networks:
@@ -34,7 +34,7 @@ services:
     container_name: ${MYSQL_CONTAINER_NAME}
     restart: always
     env_file:
-     - .env
+     - .env_v1
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_DATABASE_USERNAME}
@@ -52,7 +52,7 @@ services:
     platform: linux/arm/v7
     restart: always
     env_file:
-      - .env
+      - .env_v1
     environment:
       SPRING_DATASOURCE_URL: ${MYSQL_DATABASE_URL}
       SPRING_DATASOURCE_USERNAME: ${MYSQL_DATABASE_USERNAME_BLUE}
@@ -71,7 +71,7 @@ services:
     platform: linux/arm/v7
     restart: always
     env_file:
-      - .env
+      - .env_v1
     environment:
       SPRING_DATASOURCE_URL: ${MYSQL_DATABASE_URL}
       SPRING_DATASOURCE_USERNAME: ${MYSQL_DATABASE_USERNAME_GREEN}

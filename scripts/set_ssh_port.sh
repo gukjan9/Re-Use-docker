@@ -3,7 +3,7 @@
 echo "***** Executing set_ssh_port.sh *****"
 
 # .env 파일 로드
-ENV_FILE="$HOME/.env"
+ENV_FILE="$HOME/.env_v1"
 if [ -f "$ENV_FILE" ]; then
     export $(cat "$ENV_FILE" | xargs)
     echo "$ENV_FILE exported"
