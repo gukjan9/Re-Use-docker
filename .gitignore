@@ -1,5 +1,6 @@
 set_env.sh
 .DS_Store
-.env
+.env_v1
+.env_v2
 /nginx/conf.d/service-url-blue.inc
 /nginx/conf.d/service-url-green.inc

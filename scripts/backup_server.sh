@@ -4,7 +4,7 @@ echo "***** Executing backup_server.sh *****"
 
 # .env 파일 로드
 echo "Loading .env... [1/7]"
-ENV_FILE="$HOME/.env"
+ENV_FILE="$HOME/.env_v1"
 if [ -f "$ENV_FILE" ]; then
     export $(cat "$ENV_FILE" | xargs)
     echo "$ENV_FILE exported"
@@ -50,7 +50,7 @@ if [[ $os_version == *"armv7l"* ]] || [[ $os_version == *"raspi"* ]]; then
   sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT -r /home/$SSH_USERNAME/nginx/ $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
 
   echo "Transferring env files... [7/7]"
-  sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/.env $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
+  sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/.env_v1 $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
   sshpass -p $TARGET_SERVER_PASSWORD scp -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/scripts/set_env.sh $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
 
 else
@@ -69,7 +69,7 @@ else
   scp -i $TARGET_SERVER_KEYFILE_DIR -P $TARGET_SERVER_PORT -r /home/$SSH_USERNAME/nginx/ $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
 
   echo "Transferring env files... [7/7]"
-  scp -i $TARGET_SERVER_KEYFILE_DIR -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/.env $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
+  scp -i $TARGET_SERVER_KEYFILE_DIR -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/.env_v1 $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
   scp -i $TARGET_SERVER_KEYFILE_DIR -P $TARGET_SERVER_PORT /home/$SSH_USERNAME/scripts/set_env.sh $TARGET_SERVER_USERNAME@$TARGET_SERVER_IP:/home/$TARGET_SERVER_USERNAME/ && echo "Transfer successful!" || echo "Transfer failed"
 fi
 
